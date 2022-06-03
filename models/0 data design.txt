@@ -1,0 +1,17 @@
+
+
+product:
+id
+title
+description
+pricing {main,other[]}
+img[]
+stock
+active
+
+transaction:{
+    paymentMethod:[default:cash,card],
+    shipingRate:200,
+    duration_shiping// find a better name for this
+
+}
