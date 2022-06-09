@@ -19,14 +19,17 @@
     "@mui/material": "^5.7.0",
     "@paypal/react-paypal-js": "^7.7.0",
     "@reduxjs/toolkit": "^1.8.1",
+    "@stripe/stripe-js": "^1.31.0",
     "axios": "^0.27.2",
+    "micro": "^9.3.4",
     "mongodb-memory-server": "^8.5.2",
     "mongoose": "^6.3.3",
-    "next": "12.1.6",
+    "next": "^12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",
+    "stripe": "^9.6.0",
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {

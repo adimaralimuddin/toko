@@ -1,30 +1,65 @@
 import Cart from "../../../models/Cart";
 
-
-
 export default async function handler(req, res) {
-    const { method, query: { value, type, id } } = req;
-    if (method == 'PUT') {
-        console.log({ value, type, id })
-        try {
+  const {
+    method,
+    body,
+    query: { id },
+  } = req;
 
-            if (type == 'select') {
-                const cart = await Cart.findById(id)
-                cart.checked = value
-                await cart.save()
-                console.log(cart);
-                return res.status(200).json(cart)
-            }
-        } catch (error) {
-            return res.status(500).json({ error })
-        }
+  const { type, userId, value } = body;
+  console.log(body);
+
+  if (method == "DELETE") {
+    console.log("handle delete");
+    try {
+      const deleteToPay = await Cart.findByIdAndDelete(id);
+      return res
+        .status(200)
+        .json({ success: true, message: "successfully removed item" });
+    } catch (error) {
+      return res.status(500).json({ error });
     }
+  }
 
-    // if (method == 'GET') {
-    //     try {
-    //         const cart = await Cart
-    //     } catch (error) {
-    //         res.status(500).json({ error })
-    //     }
-    // }
+  if (method == "PUT") {
+    switch (type) {
+      case "inc":
+        try {
+          const cart = await Cart.findOne({ _id: id, userId });
+          cart.quantity = cart.quantity += 1;
+          cart.total = cart.curPrice * cart.quantity;
+          const savedCart = await cart.save();
+          return res.status(200).json(savedCart);
+        } catch (error) {
+          console.log(error);
+          return res.status(500).json({ error });
+        }
+      case "dec":
+        try {
+          const cart = await Cart.findOne({ _id: id, userId });
+          if (cart.quantity <= 1) return res.status(200).json(cart);
+          cart.quantity = cart.quantity -= 1;
+          cart.total = cart.curPrice * cart.quantity;
+          const savedCart = await cart.save();
+          return res.status(200).json(savedCart);
+        } catch (error) {
+          console.log(error);
+          return res.status(500).json({ error });
+        }
+      case "select":
+        try {
+          const cart = await Cart.findById(id);
+          cart.checked = value;
+          await cart.save();
+          return res.status(200).json(cart);
+        } catch (error) {
+          console.log(error);
+          return res.status(500).json({ error });
+        }
+
+      default:
+        break;
+    }
+  }
 }
