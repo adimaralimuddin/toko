@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import Link from "next/link";
 import {
   AppBar,
@@ -17,9 +19,14 @@ import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
 
 function MainHeader() {
   const { user } = useUser();
+
+  // async function setter() {
+  //   axios.post("/api/setter", { type: "ratings" });
+  // }
   return (
     <>
       <AppBar position="sticky" color="white" elevation={4}>
+        {/* <button onClick={setter}>setter</button> */}
         <div className="max-w-5xl mx-auto w-full">
           <Toolbar>
             <Link href="/">
@@ -53,7 +60,13 @@ function MainHeader() {
             <UserMainMenu user={user}></UserMainMenu>
             {!user && (
               <Link href="/api/auth/login">
-                <Button variant="outlined">login</Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{ marginLeft: "5px" }}
+                >
+                  login
+                </Button>
               </Link>
             )}
           </Toolbar>

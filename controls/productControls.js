@@ -4,65 +4,72 @@ import axios from "axios";
 var url = "/api/products/";
 const curl = `https://api.cloudinary.com/v1_1/dx8mmwiyp/image/upload`;
 
+
 const store_ = create((set) => ({
+  loading: true,
   products: [],
   updating: false,
   category: "all",
-  subCategory: "all",
   maxPrice: 100000,
   minPrice: 0,
   onSale: false,
-  ratings: -1,
-  stock: -1,
-  sold: -1,
-  shipingFee: -1,
-  originalPrice: -1,
+  ratings: 0,
+  shipingFee: 6,
+  originalPrice: 10,
   set: (data) => set(data),
 }));
-// const productsStore = create(set => ({
-
-// }))
 
 function useProduct() {
   const {
+    loading,
     products,
     set,
     newProduct,
     updating,
     category,
-    subCategory,
+    // subCategory,
     maxPrice,
     minPrice,
-    stock,
-    sold,
     ratings,
     shipingFee,
     originalPrice,
     onSale,
   } = store_();
 
-  const getAllProducts = async (category_ = category) => {
-    set({ products: [] });
-    console.log("getAllProducts");
-    const query = `?category=${category_}&subCategory=${subCategory}&maxPrice=${maxPrice}&minPrice=${minPrice}&ratings=${ratings}&stock=${stock}&sold=${sold}&shipingFee=${shipingFee}&originalPrice=${originalPrice}`;
-    console.log(query);
-    const { data } = await axios.get(url + query);
-    set({ products: data });
+  const queryData = (type = "query") => ({
+    type,
+    category,
+    minPrice,
+    maxPrice,
+    ratings,
+    shipingFee,
+    originalPrice,
+    onSale,
+  });
+
+  const getAllProducts = async (category) => {
+    set({ products: [], loading: true });
+    const { data } = await axios.post(
+      url,
+      category ? { ...queryData(), category } : queryData()
+    );
+    set({ products: data, loading: false });
     return data;
   };
 
   const getMainProduct = async () => {
-    // set({ category: 'all', subCategory: '', minPrice: 0, maxPrice: 100000, stock: -1, ratings: -1, sold: -1, shipingFee: -1, originalPrice: -1 })
-    // getAllProducts()
-    const { data } = await axios.get(url + `?type=all`);
-    console.log(data);
-    set({ products: data });
+    set({ products: [], loading: true });
+    const { data } = await axios.post(url, { type: "all" });
+    set({ products: data, loading: false });
   };
 
-  const getProductsByCategory = async (category, limit = true) => {
-    const { data } = await axios.get(
-      url + `?type=category&category=${category}&limit=${limit}`
-    );
+  const getProductsByCategory = async (category, limit) => {
+    // url + `?type=category&category=${category}&limit=${limit}`
+    const { data } = await axios.post(url, {
+      type: "category",
+      category,
+      limit,
+    });
     return data;
   };
 
@@ -119,12 +126,13 @@ function useProduct() {
   };
 
   return {
+    loading,
     set,
     products,
     newProduct,
     updating,
     category,
-    subCategory,
+    // subCategory,
     minPrice,
     maxPrice,
     ratings,

@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import QuantityEditor from "./others/QuantityEditor";
 import { toggle } from "../redux/cartSlice";
 import useCart from "../controls/cartControl";
+import useAccount from "../controls/accountControl";
 import LocalMallRoundedIcon from "@mui/icons-material/LocalMallRounded";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
@@ -25,9 +26,11 @@ import { useRouter } from "next/router";
 loadStripe();
 
 function Cart({ user }) {
+  if (!user) return null;
   const { quantity, total, open } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const {
+    set,
     cart,
     getCarts,
     selectItem,
@@ -40,16 +43,28 @@ function Cart({ user }) {
   } = useCart();
 
   const [state, setState] = useState(false);
+  const [allAreSelected, setAllAreSelected] = useState(false);
   const router = useRouter();
+  const { details } = useAccount();
 
   const proceedToCheckout = () => {
     setState(false);
     router.push("/checkout");
   };
 
+  console.log(details);
+
   useEffect(() => {
+    if (user && details) {
+      set({ userId: details?._id });
+    }
     getCarts();
-  }, [user]);
+  }, [user, details]);
+
+  useEffect(() => {
+    setAllAreSelected(ifItemsAreChecked());
+    console.log(ifItemsAreChecked());
+  }, [cart]);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -60,6 +75,8 @@ function Cart({ user }) {
     }
     setState(open);
   };
+
+  const ifItemsAreChecked = () => !cart?.find((c) => c.checked == false);
 
   return (
     <>
@@ -84,18 +101,18 @@ function Cart({ user }) {
             <IconButton onClick={toggleDrawer(false)}>
               <ClearOutlinedIcon />
             </IconButton>
-            <button onClick={getCarts}>test</button>
             <Typography m>My Cart</Typography>
           </Stack>
           <Stack direction="row" justifyContent="space-between">
             <span className="flex items-center">
-              <Checkbox onChange={(e) => selectAllItems(e.target.checked)} />
+              <Checkbox
+                onChange={(e) => selectAllItems(e.target.checked)}
+                checked={ifItemsAreChecked()}
+                value={allAreSelected}
+              />
               <Typography variant="body2">
                 Select All ({quantity} item(s))
               </Typography>
-            </span>
-            <span>
-              <Button startIcon={<DeleteOutlineOutlinedIcon />}>Delete</Button>
             </span>
           </Stack>
           <Divider />
@@ -116,20 +133,21 @@ function Cart({ user }) {
           <footer>
             <span className="text-gray-600 flex flex-wrap justify-between">
               <Typography variant="body1" mx color="">
-                Subtotal ({getTransactions()?.length || 0} item(s)):
-                <span className="text-orange-500 ">${getSubTotal()}</span>
+                Subtotal ({getTransactions()?.length || 0} item
+                {getTransactions()?.length > 0 && "s"}):
+                <span className="text-orange-500 ">
+                  ${getSubTotal()?.toFixed(2)}
+                </span>
               </Typography>
               <Typography variant="body1" mx>
-                Shiping fees: ${total}
+                Shiping fees: ${total?.toFixed(2)}
               </Typography>
             </span>
             <div className="mt-2 flex">
               <PrimaryButton
                 disabled={!getTransactions()}
                 onClick={proceedToCheckout}
-                sx={{ flexGrow: 1, padding: 10 }}
-                size="large"
-                color="primary"
+                className="w-full text-xl font-semibold"
               >
                 Proceed To Checkout
               </PrimaryButton>

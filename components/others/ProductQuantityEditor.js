@@ -1,19 +1,50 @@
-import { Button, ButtonGroup, Stack, Typography } from "@mui/material";
+import { Button, Modal, Stack, Typography } from "@mui/material";
 import useCart from "../../controls/cartControl";
 import QuantityEditor from "./QuantityEditor";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import PrimaryButton from "../elements/PrimaryButton";
+import { useUser } from "@auth0/nextjs-auth0";
+import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import useAccount from "../../controls/accountControl";
 
 function ProductQuantityEditor({ stock }) {
-  const { addCart, incQuantity, decQuantity, quantity } = useCart();
+  const { user } = useUser();
+  const { addCart, incQuantity, decQuantity, quantity, set, userId } =
+    useCart();
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const { details } = useAccount();
 
-  const increase = () => {
-    incQuantity();
-    // set(p => ({ quantity: p.quantity += 1, total: p?.quantity * p?.price }))
+  console.log({ details });
+  const increase = () => incQuantity();
+  const decrease = () => decQuantity();
+
+  useEffect(() => {
+    if (user) {
+      set({ userId: details?._id });
+    }
+  }, [user]);
+
+  const onAddToCartHandler = () => {
+    if (user) {
+      addCart();
+    } else {
+      setOpen(true);
+    }
   };
-  const decrease = () => {
-    decQuantity();
-    // if (quantity <= 1) return
-    // set(p => ({ quantity: p.quantity -= 1, total: p?.quantity * p?.price }))
+
+  const onBuyNowHandler = async () => {
+    if (user) {
+      // buyNow(details?._id);
+      await addCart(true);
+
+      router.push("/checkout");
+    } else {
+      setOpen(true);
+    }
   };
 
   return (
@@ -38,21 +69,57 @@ function ProductQuantityEditor({ stock }) {
           size="large"
           sx={{ flex: 1, minWidht: "200px", whiteSpace: "nowrap" }}
           startIcon={<AddShoppingCartIcon />}
-          onClick={addCart}
+          onClick={onAddToCartHandler}
           variant="outlined"
         >
           Add To Cart
         </Button>
-        <Button
-          size="large"
-          sx={{ flex: 1, minWidht: "200px" }}
-          variant="contained"
-        >
-          BUY Now
-        </Button>
+        <PrimaryButton onClick={onBuyNowHandler} className="flex-1">
+          BUY NOW
+        </PrimaryButton>
       </Stack>
+      <UserLoginModal handleClose={(_) => setOpen(false)} open={open} />
     </div>
   );
 }
 
 export default ProductQuantityEditor;
+
+function UserLoginModal({ handleClose, open }) {
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    textAlign: "center",
+    p: 4,
+  };
+
+  return (
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <Typography
+          id="modal-modal-title"
+          variant="body1"
+          component="h2"
+          // color="default"
+        >
+          Login To Your TOKO Account!
+        </Typography>
+        <br />
+        <Link href="/api/auth/login">
+          <PrimaryButton className="w-full">LOGIN</PrimaryButton>
+        </Link>
+        {/* <Button variant="outlined">LOGIN</Button> */}
+      </Box>
+    </Modal>
+  );
+}

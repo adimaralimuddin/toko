@@ -1,7 +1,7 @@
 import ProductQuantityEditor from "./others/ProductQuantityEditor";
 import ProductImages from "./ProductImages";
 import { useEffect, useState } from "react";
-import { Container, Grid, Stack, Typography } from "@mui/material";
+import { Container, Grid, Skeleton, Stack, Typography } from "@mui/material";
 import ProductRating from "./others/ProductRating";
 import ProductPricing from "./others/ProductPricing";
 import ProductsLists from "./ProductsLists";
@@ -11,8 +11,8 @@ import { useRouter } from "next/router";
 import ProductExtras from "./others/ProductExtras";
 import ProductsMoreInfo from "./others/ProductsMoreInfo";
 
-function ProductItemDetailView({ productItem }) {
-  const { getCurrentProduct, curProduct, curPrice, set } = useCart();
+function ProductItemDetailView() {
+  const { getCurrentProduct, curProduct, curPrice, set, loading } = useCart();
   const { getProductsByCategory } = useProduct();
   const router = useRouter();
   const { id } = router.query;
@@ -32,9 +32,12 @@ function ProductItemDetailView({ productItem }) {
 
   const getRelatedProducts = async () => {
     const p = await getProductsByCategory(curProduct?.category, false);
-    console.log(p);
     setProducts(p);
   };
+
+  if (loading) return <Loader />;
+
+  if (!curProduct) return <NoProduct />;
 
   return (
     <Container maxWidth="lg" color="white">
@@ -52,7 +55,10 @@ function ProductItemDetailView({ productItem }) {
             sold={curProduct?.sold}
           />
           <hr />
-          <ProductPricing price={curPrice} />
+          <ProductPricing
+            price={curPrice}
+            originalPrice={curProduct?.originalPrice}
+          />
           <hr />
           <ProductExtras />
           <ProductQuantityEditor stock={curProduct?.stock} />
@@ -72,9 +78,53 @@ function ProductItemDetailView({ productItem }) {
         </Grid>
       </Grid>
       <br />
+      <Typography>Related Products</Typography>
+      <hr />
+      <br />
       <ProductsLists products={products} />
     </Container>
   );
 }
 
 export default ProductItemDetailView;
+
+function NoProduct() {
+  return (
+    <div className="max-w-3xl mx-auto text-center h-[60vh] flex items-center justify-center">
+      <h1 className="text-xl text-gray-500 font-semibold"> ITEM NOT FOUND!</h1>
+    </div>
+  );
+}
+
+function Loader() {
+  return (
+    <Container maxWidth="md">
+      <br />
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Skeleton variant="box" height={300} sx={{ heigth: "300px" }} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <div className="flex flex-col justify-between h-full">
+            <div>
+              <Skeleton variant="box" height={30} />
+              <Skeleton variant="text" />
+              <br />
+              <div className="flex flex-wrap justify-between">
+                <Skeleton variant="text" width={"30%"} m />
+                <Skeleton variant="text" width={"30%"} m />
+                <Skeleton variant="text" width={"30%"} m />
+              </div>
+              <Skeleton variant="text" />
+            </div>
+            <div className="flex flex-wrap justify-between">
+              <Skeleton variant="box" height={50} width="45%" />
+              <Skeleton variant="box" height={50} width="45%" />
+            </div>
+            <br />
+          </div>
+        </Grid>
+      </Grid>
+    </Container>
+  );
+}

@@ -3,7 +3,8 @@ import create from "zustand";
 
 const store_ = create((set) => ({
   quantity: 1,
-  userId: "62822059f4ad8a31e8cbd6db",
+  loading: true,
+  cart: [],
   paymentMethod: "online",
   set: (data) => set(data),
 }));
@@ -13,6 +14,7 @@ const baseUrl = "/api/cart/";
 function useCart() {
   const {
     set,
+    loading,
     cart,
     checkedItems,
     curProduct,
@@ -28,7 +30,7 @@ function useCart() {
     paymentMethod,
   } = store_();
 
-  const toCheckout = async () => {
+  const placeOrder = async () => {
     const res = await axios.post("/api/checkout_sessions", {
       userId,
       paymentMethod,
@@ -42,27 +44,31 @@ function useCart() {
   };
 
   const getSelectedCarts = async () => {
-    const res = await axios.get(baseUrl, { userId, type: "selected" });
+    const res = await axios.get(baseUrl + `?userId=${userId}&type=select`);
     set({ checkedItems: res.data });
   };
 
-  const addCart = async () => {
+  const addCart = async (checked = false) => {
     const body = {
       quantity,
+      userId,
       curPrice,
       productId,
-      userId,
       name,
       description,
       image,
+      checked,
     };
     console.log(body);
     const res = await axios.post("/api/cart", body);
     set((p) => ({ cart: [...p?.cart, res.data] }));
   };
 
+
+
   const selectProduct = (product) => {
     set({
+      loading: false,
       curProduct: product,
       productId: product?._id,
       name: product?.title,
@@ -99,8 +105,13 @@ function useCart() {
   };
 
   const getCurrentProduct = async (id) => {
-    const res = await axios.get(`/api/products/` + id);
-    selectProduct(res.data);
+    set({ loading: true });
+    try {
+      const res = await axios.get(`/api/products/` + id);
+      selectProduct(res.data);
+    } catch (error) {
+      set({ loading: false, curProduct: null });
+    }
   };
 
   const incQuantity = () => set((p) => ({ quantity: p.quantity + 1 }));
@@ -139,6 +150,8 @@ function useCart() {
 
   return {
     set,
+    userId,
+    loading,
     quantity,
     cart,
     subTotal,
@@ -147,7 +160,7 @@ function useCart() {
     extra,
     curPrice,
     paymentMethod,
-    toCheckout,
+    placeOrder,
     selectItem,
     getCurrentProduct,
     addCart,

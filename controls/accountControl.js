@@ -12,17 +12,12 @@ export default function useAccount() {
 
   const getAccountDetails = async (email) => {
     const res = await axios.get(url + `?email=${email}`);
-    console.log(res.data);
     set({ details: res.data });
   };
 
   const updateField = async (field, email) => {
     const res = await axios.put(url + `?email=${email}`, field);
     set({ details: res.data });
-  };
-
-  const getAccountAddress = async (email) => {
-    const res = await axios.get(url + `?email=${email}`);
   };
 
   const fullAddress = () =>

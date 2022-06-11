@@ -1,13 +1,15 @@
-import { Box, Container, Grid, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, Stack, Typography, Modal } from "@mui/material";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useCart from "../../controls/cartControl";
 import { useUser } from "@auth0/nextjs-auth0";
+import useAccount from "../../controls/accountControl";
+import Link from "next/link";
 
 function CheckoutMainPage() {
   const {
     cart,
-    toCheckout,
+    placeOrder,
     getSelectedCarts,
     checkedItems,
     selectItem,
@@ -18,6 +20,8 @@ function CheckoutMainPage() {
     set,
   } = useCart();
   const { user } = useUser();
+  const { details } = useAccount();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getSelectedItems();
@@ -27,10 +31,30 @@ function CheckoutMainPage() {
     getSelectedCarts();
   }
 
+  const onPlaceOrderHandler = () => {
+    if (checkAddress()) {
+      placeOrder();
+    } else {
+      setOpen(true);
+    }
+  };
+
+  const checkAddress = () => {
+    if (
+      details?.country == "none" ||
+      details?.city == "none" ||
+      details?.street == "none" ||
+      details?.houseNumber == null
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <Container maxWidth="lg">
       <Box>
-        <button onClick={getSelectedItems}>test</button>
         {checkedItems?.map((product) => (
           <Item
             product={product}
@@ -57,6 +81,46 @@ function CheckoutMainPage() {
             <option value="cash">Cask On Dilivery</option>
           </select>
         </div>
+        <div className="flex flex-wrap items-center px-2 justify-between mb-3">
+          <p>Shiped To</p>
+          {checkAddress() ? (
+            <div>
+              <p>
+                {details?.country}, {details?.city}, {details?.street},{" "}
+              </p>
+              <p>House number: {details?.houseNumber}</p>
+              <Link href="/account">
+                <button className="text-orange-600 font-semibold hover:underline">
+                  Modify Shiping Address
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <div className="ring-1 ring-gray-300 p-2 flex flex-col">
+              <small>You Must Setup A Shiping Address</small>
+              <Link href="/account">
+                <button className="text-orange-600 font-semibold hover:underline">
+                  Setup Shiping Address
+                </button>
+              </Link>
+            </div>
+          )}
+        </div>
+        <Modal
+          open={open}
+          onClose={(_) => setOpen(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]  m-auto h-[150px] bg-white p-3 py-5 w-full max-w-sm justify-center text-gray-500 flex flex-col items-center">
+            <p>You Must Setup a Shiping Address First!</p>
+            <Link href="/account">
+              <button className="text-orange-600 font-semibold hover:underline">
+                Setup Shiping Address
+              </button>
+            </Link>
+          </div>
+        </Modal>
         <hr />
         <div className="self-end flex flex-col w-full max-w-sm m-2 p-3 text-gray-500">
           <span className="flex-1 ring-1d min-w-[200px] flex items-center justify-between py-1">
@@ -78,31 +142,35 @@ function CheckoutMainPage() {
             <p>Merchandise Subtotal:</p>
             <p>
               $
-              {checkedItems?.reduce(
-                (total, item) => total + item.curPrice * item.quantity,
-                0
-              )}
+              {checkedItems
+                ?.reduce(
+                  (total, item) => total + item.curPrice * item.quantity,
+                  0
+                )
+                ?.toFixed(2)}
             </p>
           </span>
           <span className="flex-1 ring-1d min-w-[200px] flex items-center justify-between py-1">
             <p>shiping total:</p>
-            <p>$324</p>
+            <p>${324?.toFixed(2)}</p>
           </span>
           <span className="flex-1 ring-1d min-w-[200px] flex items-center justify-between py-1">
             <p>Total Payment:</p>
             <Typography ml={4} variant="h5" color="primary">
               $
-              {checkedItems?.reduce(
-                (price, item) => price + item.curPrice * item.quantity,
-                0
-              )}
+              {checkedItems
+                ?.reduce(
+                  (price, item) => price + item.curPrice * item.quantity,
+                  0
+                )
+                ?.toFixed(2)}
             </Typography>
           </span>
         </div>
         <hr />
         <div className="flex justify-end p-3">
           <button
-            onClick={toCheckout}
+            onClick={onPlaceOrderHandler}
             className="bg-[#FF6363] text-white p-2 w-full max-w-xs font-semibold text-lg hover:bg-[#ff8080] "
           >
             Place Order

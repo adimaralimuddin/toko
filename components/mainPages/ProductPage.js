@@ -1,18 +1,21 @@
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Skeleton } from "@mui/material";
 import { useEffect } from "react";
 import useProduct from "../../controls/productControls";
 import BannerMain from "../banners/BannerMain";
 import ProductCategories from "../banners/ProductCategories";
 import ProductCategory from "../banners/ProductCategory";
+import LoaderBannerMain from "../loader/LoaderBannerMain";
+import LoaderProductLists from "../loader/LoaderProductLists";
 import ProductsLists from "../ProductsLists";
 
 function ProductPage({ productLists }) {
-  const { getAllProducts, products, getMainProduct } = useProduct();
+  const { products, getMainProduct, loading } = useProduct();
 
   useEffect(() => {
-    // getAllProducts()
     getMainProduct();
   }, []);
+
+  if (loading) return <LoadingView />;
 
   return (
     <Container maxWidth="lg">
@@ -30,3 +33,15 @@ function ProductPage({ productLists }) {
 }
 
 export default ProductPage;
+
+function LoadingView() {
+  return (
+    <Container maxWidth="lg">
+      <div className="p-5">
+        <LoaderBannerMain />
+        <br />
+        <LoaderProductLists />
+      </div>
+    </Container>
+  );
+}

@@ -36,6 +36,8 @@ export default async function handler(req, res) {
       metadata: { userId },
     } = object;
 
+    console.log(object);
+
     const cart = await Cart.find({ userId, checked: true });
     const purchase = await Promise.all(
       cart.map(async (item) => {
@@ -47,9 +49,8 @@ export default async function handler(req, res) {
         return transItem;
       })
     );
-
+    console.log({ purchase });
   } // end if event.typ == checkout.session.completed
-
 
   res.send({ received: true });
 }

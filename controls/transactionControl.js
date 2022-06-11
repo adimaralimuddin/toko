@@ -3,46 +3,45 @@ import create from "zustand";
 
 const store_ = create((set) => ({
   userId: "62822059f4ad8a31e8cbd6db",
-  display: "all",
+  display: "All",
+  loading: true,
   set: (data) => set(data),
 }));
 
 const baseUrl = "/api/transaction/";
 export default function useTransaction() {
-  const { set, userId, transactions, selectedTransactions, display } = store_();
+  const { set, userId, transactions, selectedTransactions, display, loading } =
+    store_();
 
-  const getTransactions = async () => {
-    const res = await axios.get(baseUrl + "?userId=" + userId);
-    console.log(res.data);
-    set({ transactions: res.data, selectedTransactions: res.data });
-    setDisplay(display, res.data);
+  const getTransactions = async (userId) => {
+    console.log(userId);
+    set({ loading: true, userId });
+    try {
+      const res = await axios.get(baseUrl + "?userId=" + userId);
+      set({
+        transactions: res.data,
+        selectedTransactions: res.data,
+        loading: false,
+      });
+      setDisplay(display, res.data);
+    } catch (error) {
+      console.log("has error", error);
+      set({ loading: false });
+    }
   };
 
   const cancelOrder = async (id) => {
     const res = await axios.delete(baseUrl + id + `?type=cancel`);
-    await getTransactions();
-
-    // const transactions_ = transactions?.map((t) =>
-    //   t?._id == res.data?._id ? res.data : t
-    // );
-    // set({ transactions: transactions_ });
-    // console.log(display);
-    // setDisplay(display || "all", transactions_);
+    await getTransactions(userId);
   };
 
   const removeItem = async (id) => {
     const res = await axios.delete(baseUrl + id + `?type=remove`);
-    await getTransactions();
-
-    // const transactions_ = transactions?.filter((p) => p?._id != id);
-    // set({ transactions: transactions_ });
-    // console.log({ display, transactions_ });
-    // setDisplay(display || "all", transactions_);
+    await getTransactions(userId);
   };
 
   const setDisplay = (value, transactions_ = transactions) => {
-    console.log(display);
-    console.log(transactions_);
+    console.log(value);
     set({ selectedTransactions: [] });
     switch (value) {
       case "All":
@@ -54,12 +53,12 @@ export default function useTransaction() {
           ),
           display: "To Ship",
         });
-      case "To Recieve":
+      case "To Receive":
         return set({
           selectedTransactions: transactions_?.filter(
             (p) => p.status === "receiving" && p.canceled == false
           ),
-          display: "To Recieve",
+          display: "To Receive",
         });
       case "Completed":
         return set({
@@ -81,6 +80,7 @@ export default function useTransaction() {
   };
 
   return {
+    loading,
     display,
     transactions,
     selectedTransactions,

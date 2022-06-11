@@ -2,12 +2,16 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { useEffect, useState } from "react";
 
 import useTransaction from "../../controls/transactionControl";
+import LoaderCartItemList from "../loader/LoaderCartItemList";
 import TransactionItem from "../transaction/TransactionItem";
+import useAccount from "../../controls/accountControl";
 
 export default function AccountPurchase() {
   const { user } = useUser();
-  const [curTab, setTab] = useState("All");
+  const { details } = useAccount();
+
   const {
+    loading,
     getTransactions,
     selectedTransactions,
     cancelOrder,
@@ -17,16 +21,14 @@ export default function AccountPurchase() {
   } = useTransaction();
 
   useEffect(() => {
-    if (user) {
-      getTransactions();
+    if (user && details) {
+      getTransactions(details?._id);
     }
-  }, [user]);
+  }, [user, details]);
 
   console.log("render", { display, selectedTransactions });
 
   const handleChange = ({ target }) => {
-    setTab(target.textContent);
-    // console.log(target.textContent);
     setDisplay(target.textContent);
   };
 
@@ -49,13 +51,14 @@ export default function AccountPurchase() {
       <div className="bg-white shadow-sm sticky top-[90px] flex flex-wrap justify-between ">
         {["All", "To Ship", "To Receive", "Completed", "Canceled"]?.map(
           (tab) => (
-            <TabButton active={curTab} onClick={handleChange}>
+            <TabButton active={display} onClick={handleChange}>
               {tab}
             </TabButton>
           )
         )}
       </div>
       <div className="">
+        {loading && <LoaderCartItemList />}
         {selectedTransactions?.map((transaction) => (
           <TransactionItem
             data={transaction}

@@ -7,6 +7,7 @@ export default async function handler(req, res) {
     method,
     query: { email },
   } = req;
+  
   dbConnect();
 
   if (method == "GET") {

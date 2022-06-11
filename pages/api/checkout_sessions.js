@@ -9,6 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 export default async function handler(req, res) {
   const { body } = req;
   const { userId, paymentMethod } = body;
+  console.log("checkout session api");
   if (req.method === "POST") {
     console.log("payment method ", paymentMethod);
     if (paymentMethod == "cash") {
@@ -34,7 +35,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error });
       }
     } else {
-      return res.send();
+      // return res.send();
       try {
         console.log("checkout api_ ", userId);
 
@@ -60,7 +61,7 @@ export default async function handler(req, res) {
           mode: "payment",
           metadata,
           success_url: `${req.headers.origin}/account/purchase`,
-          cancel_url: `${req.headers.origin}/?canceled=true`,
+          cancel_url: `${req.headers.origin}/account/purchase/?canceled=true`,
         });
 
         console.log(session.url);
