@@ -71,8 +71,9 @@ function Cart({ user }) {
     setState(open);
   };
 
-  const ifItemsAreChecked = () => !cart?.find((c) => c.checked == false);
-
+  function ifItemsAreChecked() {
+    return !cart?.find((c) => c.checked == false);
+  }
   return (
     <>
       <IconButton sx={{ padding: "3px" }} onClick={toggleDrawer(true)}>
