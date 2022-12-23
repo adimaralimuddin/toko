@@ -29,7 +29,9 @@ export default async function handler(req, res) {
         console.log(purchase);
         return res
           .status(200)
-          .json({ url: "http://localhost:3000/account/purchase" });
+          .json({
+            url: `${process.env.NEXT_PUBLIC_BASE_URL}/account/purchase`,
+          });
       } catch (error) {
         console.log(error);
         return res.status(500).json({ error });

@@ -1,20 +1,14 @@
-import { Button, Grid, Paper, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Grid, Typography } from "@mui/material";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import useProduct from "../../controls/productControls";
 import { sampProdCategories } from "./BannerCaption";
 
 function ProductCategories() {
   const [categories, setCategories] = useState(sampProdCategories);
-  const { getAllProducts } = useProduct();
 
   return (
     <div>
-      {/* <div>
-        <button onClick={getAllProducts}>get prods</button>
-      </div> */}
       <Grid container spacing={2} alignItems="stretch">
         {categories?.map((category) => (
           <CategoryItem
