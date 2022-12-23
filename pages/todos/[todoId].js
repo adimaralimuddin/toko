@@ -24,7 +24,7 @@ function TodoId({ todo }) {
   );
 }
 
-export default todoId;
+export default TodoId;
 
 export async function getServerSideProps({ params }) {
   const todo = await Todos.findById(params.todoId);
