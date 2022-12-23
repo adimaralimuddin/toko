@@ -22,13 +22,15 @@ function ProductsMoreInfo({ product }) {
         <LocalShippingIcon color="primary" size="small" />
         <Typography ml variant="body2">
           Shiping to{" "}
-          <span className="font-semibold text-gray-500">{fullAddress()}</span>
+          <span className="font-semibold text-gray-500">
+            {fullAddress() }
+          </span>
         </Typography>
       </div>
       <div className="flex items-center my-1">
         <StoreIcon color="text " />
         <Typography ml variant="body2">
-          {" "}
+         
           Sold and shipped by <span className="font-semibold">TOKO</span>
         </Typography>
       </div>

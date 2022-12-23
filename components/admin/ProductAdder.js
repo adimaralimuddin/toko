@@ -27,8 +27,7 @@ const store_ = create((set, get) => ({
 function ProductAdder() {
   const store = store_();
 
-  const { products, newProduct, getAllProducts, addProduct, deleteById } =
-    useProduct();
+  const { newProduct, getAllProducts, addProduct, deleteById } = useProduct();
 
   useEffect(() => {
     getAllProducts();
@@ -163,7 +162,12 @@ function ProductAdder() {
         <div className="p-2">
           <div className="flex flex-wrap">
             {store?.images?.map((img) => (
-              <img className="ring-1 mr-2 mb-2" width={100} src={img} />
+              <img
+                className="ring-1 mr-2 mb-2"
+                width={100}
+                src={img}
+                key={img}
+              />
             ))}
           </div>
           <input onInput={addImage} type="file" multiple />
@@ -172,15 +176,6 @@ function ProductAdder() {
         <ExtraAdder store={store} />
       </section>
       <ProductAdminItem product={newProduct} deleteById={deleteById} />
-      {/* <div className="flex flex-wrap">
-        {products?.map((product) => (
-          <ProductAdminItem
-            product={product}
-            deleteById={deleteById}
-            key={product?._id}
-          />
-        ))}
-      </div> */}
     </div>
   );
 }
@@ -196,7 +191,12 @@ function ProductAdminItem({ product, deleteById }) {
         <small>{product?.description}</small>
         <div className="flex flex-wrap flex-1">
           {product?.images?.map((img) => (
-            <img className="mr-1 ring-1" width={40} src={img.secure_url} />
+            <img
+              className="mr-1 ring-1"
+              width={40}
+              src={img.secure_url}
+              key={img?.secure_url}
+            />
           ))}
         </div>
         <span className="flex justify-between">
@@ -211,14 +211,16 @@ function ProductAdminItem({ product, deleteById }) {
           <small>Prices:</small>
           <div className="flex items-center">
             {product?.prices?.map((price) => (
-              <p className="px-1 ml-1 bg-gray-300 rounded-md">{price}</p>
+              <p key={price} className="px-1 ml-1 bg-gray-300 rounded-md">
+                {price}
+              </p>
             ))}
           </div>
           <Dist>{product?.originalPrice}</Dist>
         </span>
         <span className="flex flex-wrap ">
           {product?.extras?.map((extra) => (
-            <div className="flex flex-col ring-1 p-1">
+            <div key={extra?.text} className="flex flex-col ring-1 p-1">
               <small>{extra?.text}</small>
               <small>${extra?.price}</small>
             </div>
@@ -254,6 +256,7 @@ function ExtraAdder({ store }) {
       <span className="flex flex-wrap">
         {store?.extras?.map((extra) => (
           <div
+            key={extra?.text}
             onClick={(_) =>
               store.set((p) => ({ extras: p.extras.filter((p) => p != extra) }))
             }
@@ -302,6 +305,7 @@ function PriceAdder({ store }) {
         <div className="flex flex-wrap">
           {store?.prices?.map((price) => (
             <p
+              key={price}
               onClick={(_) =>
                 store.set((p) => ({
                   prices: p.prices.filter((p) => p != price),

@@ -1,39 +1,45 @@
 import { model, models, Schema } from "mongoose";
 
-const CartSchema = new Schema({
+const CartSchema = new Schema(
+  {
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     productId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Product',
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
     },
     description: {
-        type: String,
+      type: String,
     },
     name: {
-        type: String,
+      type: String,
     },
     quantity: {
-        type: Number,
-        default: 1,
+      type: Number,
+      default: 1,
     },
     curPrice: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     total: Number,
     image: String,
+    shipingFee: {
+      type: Number,
+      default: 0,
+    },
     checked: {
-        type: Boolean,
-        default: false,
-    }
-}, {
-    timestamps: true
-})
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default models.Cart || model('Cart', CartSchema)
-
+export default models.Cart || model("Cart", CartSchema);

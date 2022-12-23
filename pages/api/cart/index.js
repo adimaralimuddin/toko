@@ -32,9 +32,10 @@ export default async function handler(req, res) {
       const cart = new Cart(body);
       cart.total = cart.curPrice * cart.quantity;
 
-      const saveCart = await cart.save();
+      const newCart = await cart.save();
+      console.log("cart added ", newCart);
 
-      return res.status(200).json(saveCart);
+      return res.status(200).json(newCart);
     } catch (error) {
       console.log("has error");
       return res.status(500).json({ message: "unabel to add cart", error });

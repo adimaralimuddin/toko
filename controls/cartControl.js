@@ -28,12 +28,14 @@ function useCart() {
     subTotal,
     extra,
     paymentMethod,
+    shipingFee,
   } = store_();
 
-  const placeOrder = async () => {
+  const placeOrder = async (user, userId) => {
     const res = await axios.post("/api/checkout_sessions", {
       userId,
       paymentMethod,
+      email: user?.email,
     });
     window.location.replace(res.data.url);
   };
@@ -44,8 +46,9 @@ function useCart() {
   };
 
   const getSelectedCarts = async () => {
+    set({ loading: true, checkedItems: [] });
     const res = await axios.get(baseUrl + `?userId=${userId}&type=select`);
-    set({ checkedItems: res.data });
+    set({ checkedItems: res.data, loading: false });
   };
 
   const addCart = async (checked = false) => {
@@ -58,13 +61,12 @@ function useCart() {
       description,
       image,
       checked,
+      shipingFee,
     };
     console.log(body);
     const res = await axios.post("/api/cart", body);
     set((p) => ({ cart: [...p?.cart, res.data] }));
   };
-
-
 
   const selectProduct = (product) => {
     set({
@@ -77,6 +79,7 @@ function useCart() {
       description: product?.description,
       quantity: 1,
       image: product?.images?.[0]?.secure_url,
+      shipingFee: product?.shipingFee,
     });
     getCarts();
   };

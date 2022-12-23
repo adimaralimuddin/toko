@@ -1,5 +1,4 @@
 import {
-  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -11,16 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 
-const pricesValues = [
-  10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 800,
-  900, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000,
-];
-const ratingsValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 import useProduct from "../../controls/productControls";
 import PrimaryButton from "../elements/PrimaryButton";
 
-const cats = ["device", "clothing", "toy", "furniture", "food", "toy"];
+const cats = ["device", "clothing", "toy", "furniture", "food", "tool"];
 
 function MainQuerySideBar({ flex }) {
   const {
@@ -29,7 +22,6 @@ function MainQuerySideBar({ flex }) {
     subCategory,
     minPrice,
     maxPrice,
-    sold,
     ratings,
     shipingFee,
     originalPrice,
@@ -48,15 +40,14 @@ function MainQuerySideBar({ flex }) {
       originalPrice,
       onSale,
     };
-    console.log(data);
     getAllProducts();
   };
 
   return (
     <div
       className={
-        " bg-white  flex " +
-        (flex ? " overflow-x-autod flex-wrap " : " flex-col shadow-md")
+        " bg-whited flex p-1 " +
+        (flex ? " overflow-x-autod flex-wrap " : " flex-col dshadow-md")
       }
     >
       <FormControl sx={{ m: 1, minWidth: 90 }}>
@@ -71,7 +62,9 @@ function MainQuerySideBar({ flex }) {
           onChange={(e) => set({ category: e.target?.value })}
         >
           {cats?.map((value) => (
-            <MenuItem value={value}>{value}s</MenuItem>
+            <MenuItem key={value} value={value}>
+              {value}s
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -113,17 +106,13 @@ function MainQuerySideBar({ flex }) {
         />
       </div>
 
-      {/* Ratings */}
-
       <div className="p-2">
         <Typography variant="body2">Ratings ({ratings})</Typography>
         <Rating
-          // size="small"
           onChange={(e, ratings) => set({ ratings })}
           name="half-rating"
           defaultValue={2.5}
           precision={0.5}
-          // max={5}
         />
       </div>
 
@@ -139,7 +128,9 @@ function MainQuerySideBar({ flex }) {
           onChange={(e) => set({ shipingFee: e.target.value })}
         >
           {[0, 2, 3, 4, 5, 6]?.map((value) => (
-            <MenuItem value={value}>${value}</MenuItem>
+            <MenuItem key={value} value={value}>
+              ${value}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -156,7 +147,9 @@ function MainQuerySideBar({ flex }) {
           onChange={(e) => set({ originalPrice: e.target.value })}
         >
           {[10, 20, 30, 40, 50, 60]?.map((value) => (
-            <MenuItem value={value}>{value}% OFF</MenuItem>
+            <MenuItem key={value} value={value}>
+              {value}% OFF
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

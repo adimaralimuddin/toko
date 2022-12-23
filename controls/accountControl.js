@@ -21,7 +21,9 @@ export default function useAccount() {
   };
 
   const fullAddress = () =>
-    `${details?.country}, ${details?.city}, ${details?.houseNumber}`;
+    `${details?.country || "unset"}, ${details?.city || "unset"}, ${
+      details?.houseNumber || "unset"
+    }`;
 
   return {
     set,

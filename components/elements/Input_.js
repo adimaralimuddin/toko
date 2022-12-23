@@ -1,6 +1,5 @@
 
 
-import React from 'react'
 
 function Input_(data) {
     const { label, className, htmlFor } = data

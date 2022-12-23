@@ -6,8 +6,6 @@ import {
   Button,
   Stack,
   Container,
-  List,
-  IconButton,
 } from "@mui/material";
 import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -27,7 +25,6 @@ function MainFooter() {
               <div className="flex  items-center">
                 <StoreMallDirectoryIcon
                   sx={{ marginRight: "2px", fontSize: "3em" }}
-                  //   fontSize="extra-large"
                   color="primary"
                 />
                 <Typography
@@ -50,8 +47,6 @@ function MainFooter() {
                 <InstagramIcon fontSize="large" sx={{ marginRight: 2 }} />
                 <PinterestIcon fontSize="large" sx={{ marginRight: 2 }} />
               </div>
-
-
             </Box>
           </Grid>
           <Grid item md={2} sm={4} xs={12}>
@@ -83,7 +78,7 @@ function MainFooter() {
               </div>
             </Box>
           </Grid>
-          <Grid item md={4} sm={12}>
+          {/* <Grid item md={4} sm={12}>
             <Stack
               direction="row"
               sx={{ flexGrow: 1, maxWidth: "500px", marginX: "auto" }}
@@ -95,13 +90,13 @@ function MainFooter() {
               ></TextField>
               <Button variant="outlined">SIGNUP</Button>
             </Stack>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
-      
+
       <div className="flex items-center justify-center pt-4 ">
         {["home", "Privacy_Policy", "Terms_of_Use"]?.map((text) => (
-          <Link href={text == "home" ? "/" : text}>
+          <Link key={text} href={text == "home" ? "/" : text}>
             <p className="px-2 cursor-pointer hover:text-gray-700">
               {text?.replace("_", " ")}
             </p>

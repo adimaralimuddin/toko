@@ -27,7 +27,6 @@ function useProduct() {
     newProduct,
     updating,
     category,
-    // subCategory,
     maxPrice,
     minPrice,
     ratings,
@@ -64,7 +63,6 @@ function useProduct() {
   };
 
   const getProductsByCategory = async (category, limit) => {
-    // url + `?type=category&category=${category}&limit=${limit}`
     const { data } = await axios.post(url, {
       type: "category",
       category,
@@ -104,11 +102,9 @@ function useProduct() {
       products: [...p?.products, res.data],
       newProduct: res.data,
     }));
-    // store.set({ title: '', description: '', prices: [], img: [], imgFiles: [] })
   };
 
   const updateProduct = async (store) => {
-    // console.log(store)
     set({ updating: true });
     const { data } = await axios.put(url + store?._id, {
       title: store?.title,
@@ -132,7 +128,6 @@ function useProduct() {
     newProduct,
     updating,
     category,
-    // subCategory,
     minPrice,
     maxPrice,
     ratings,

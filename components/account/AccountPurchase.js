@@ -26,8 +26,6 @@ export default function AccountPurchase() {
     }
   }, [user, details]);
 
-  console.log("render", { display, selectedTransactions });
-
   const handleChange = ({ target }) => {
     setDisplay(target.textContent);
   };
@@ -51,7 +49,7 @@ export default function AccountPurchase() {
       <div className="bg-white shadow-sm sticky top-[90px] flex flex-wrap justify-between ">
         {["All", "To Ship", "To Receive", "Completed", "Canceled"]?.map(
           (tab) => (
-            <TabButton active={display} onClick={handleChange}>
+            <TabButton active={display} onClick={handleChange} key={tab}>
               {tab}
             </TabButton>
           )

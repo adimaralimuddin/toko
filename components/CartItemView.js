@@ -8,8 +8,6 @@ export default function CartItemView({
   deletePayItem,
   incPayItemQnty,
   decPayItemQnty,
-  deselect,
-  type,
 }) {
   const onSelectHandler = (e) => {
     const value = e.target.checked;

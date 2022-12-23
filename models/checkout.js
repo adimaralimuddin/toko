@@ -19,12 +19,6 @@ const CheckoutSchema = new Schema(
         },
       ],
     },
-    // cart: [
-    //   {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Cart",
-    //   },
-    // ],
   },
   {
     timestamps: true,

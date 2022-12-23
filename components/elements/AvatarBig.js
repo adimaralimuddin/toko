@@ -1,6 +1,5 @@
 import { Avatar, Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
 
 function AvatarBig(props) {
   const { src, alt, name } = props;

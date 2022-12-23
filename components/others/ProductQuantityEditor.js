@@ -18,7 +18,6 @@ function ProductQuantityEditor({ stock }) {
   const router = useRouter();
   const { details } = useAccount();
 
-  console.log({ details });
   const increase = () => incQuantity();
   const decrease = () => decQuantity();
 
@@ -38,9 +37,8 @@ function ProductQuantityEditor({ stock }) {
 
   const onBuyNowHandler = async () => {
     if (user) {
-      // buyNow(details?._id);
+     
       await addCart(true);
-
       router.push("/checkout");
     } else {
       setOpen(true);
@@ -110,7 +108,6 @@ function UserLoginModal({ handleClose, open }) {
           id="modal-modal-title"
           variant="body1"
           component="h2"
-          // color="default"
         >
           Login To Your TOKO Account!
         </Typography>
@@ -118,7 +115,6 @@ function UserLoginModal({ handleClose, open }) {
         <Link href="/api/auth/login">
           <PrimaryButton className="w-full">LOGIN</PrimaryButton>
         </Link>
-        {/* <Button variant="outlined">LOGIN</Button> */}
       </Box>
     </Modal>
   );

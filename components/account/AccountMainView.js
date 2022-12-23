@@ -28,7 +28,7 @@ function AccountMainPage() {
           <Typography variant="h6">My Profile</Typography>
           <Typography variant="body2">Manage my profile</Typography>
         </Box>
-        <Divider />
+        {/* <Divider /> */}
 
         <Box>
           <Updatable disabled label="Email" value={user?.email} />
@@ -39,7 +39,7 @@ function AccountMainPage() {
           />
           <Divider />
           <Stack spacing={2} direction="column" sx={{ marginTop: 2 }}>
-            <Typography variant="h6">Payment's Address</Typography>
+            <Typography variant="h6">Shipping Address</Typography>
             <Updatable
               label="Country"
               value={details?.country}
@@ -89,11 +89,13 @@ function Updatable({ value, label, onUpdate, disabled }) {
   return (
     <div>
       <Stack
+        className="max-w-[400px]"
         direction="row"
         spacing={2}
-        alignItems="center"
+        alignItems="stretch"
+        justifyContent="space-between"
         m
-        divider={<Divider orientation="vertical" flexItem />}
+        // divider={<Divider orientation="vertical" flexItem />}
       >
         {!editing && <Typography variant="body1">{label}</Typography>}
         {!editing && <Typography ml>{value}</Typography>}

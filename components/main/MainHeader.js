@@ -1,34 +1,25 @@
-import axios from "axios";
-
 import Link from "next/link";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Box,
-  Container,
-  Button,
-} from "@mui/material";
+import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import InputSearchBox from "../others/InputSearchBox";
 import CategoiesMenus from "../others/CategoiesMenus";
 import Cart from "../Cart";
 import UserMainMenu from "../others/UserMainMenu";
-import PrimaryButton from "../elements/PrimaryButton";
 import { useUser } from "@auth0/nextjs-auth0";
 import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
 
 function MainHeader() {
   const { user } = useUser();
 
-  // async function setter() {
-  //   axios.post("/api/setter", { type: "ratings" });
-  // }
   return (
     <>
       <AppBar position="sticky" color="white" elevation={4}>
-        {/* <button onClick={setter}>setter</button> */}
-        <div className="max-w-5xl mx-auto w-full">
-          <Toolbar>
+        <div className="bg-white -50">
+          <div className="bg-indigo-50">
+            <div className="flex items-center max-w-6xl m-auto w-full text-slate-400">
+              <small>about toky</small>
+            </div>
+          </div>
+          <Toolbar className="max-w-6xl mx-auto w-full p-0 ">
             <Link href="/">
               <div className="cursor-pointer flex hover:scale-105">
                 <StoreMallDirectoryIcon
@@ -51,7 +42,7 @@ function MainHeader() {
                     },
                   }}
                 >
-                  Toko
+                  eBeli
                 </Typography>
               </div>
             </Link>

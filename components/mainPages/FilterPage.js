@@ -21,19 +21,20 @@ function FilterPage() {
   }, [category]);
 
   return (
-    <Container maxWidth="large">
+    <Container maxWidth="xl" className="pt-[20px]">
       <Grid container spacing={2}>
         <Grid sx={0} sm={4} md={3} lg={2} item>
-          <div className=" min-w-0 sm:block sticky hidden top-[90px] z-50">
+          <div className=" min-w-0 sm:block sticky hidden top-[104px] z-50">
             <MainQuerySideBar />
           </div>
         </Grid>
+
         <Grid sx={10} sm={8} md={9} lg={10} container item spacing={2}>
           <CategorySearchFilter results={products?.length} />
-          <Grid item></Grid>
+          {/* <Grid item></Grid> */}
           {loading && <LoaderProductLists />}
           {products?.length == 0 && <NoItems />}
-          <Grid spacing={1} container item>
+          <Grid spacing={2} container item>
             {products?.map((product) => (
               <ProductItemCardView product={product} key={product?._id} />
             ))}

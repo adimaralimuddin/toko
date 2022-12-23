@@ -59,7 +59,7 @@ function BannerCaption() {
   return (
     <div
       style={image()}
-      className="flex h-[350px] bg-gray-200 bg-cover bg-center bg-no-repeat "
+      className="flex h-[280px] bg-gray-200 bg-cover bg-center bg-no-repeat rounded-xl"
     >
       <span className="self-center">
         <IconButton onClick={preve}>

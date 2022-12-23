@@ -6,6 +6,7 @@ function ProductRating({ ratings, sold, simple }) {
       <Stack direction="row" alignItems="center" spacing={1}>
         <Rating
           value={ratings}
+          max={3}
           precision={0.5}
           readOnly
           size={!simple ? "medium" : "small"}

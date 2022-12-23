@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   const { body } = req;
-  const { userId, paymentMethod } = body;
+  const { userId, paymentMethod, email } = body;
   console.log("checkout session api");
   if (req.method === "POST") {
     console.log("payment method ", paymentMethod);
@@ -55,13 +55,63 @@ export default async function handler(req, res) {
           quantity: cart?.quantity,
         }));
 
+        const shippingFee = () =>
+          carts?.reduce((total, item) => total + item?.shipingFee, 0);
+
+        console.log("shiping fee ", shippingFee());
+
         const metadata = { userId };
         const session = await stripe.checkout.sessions.create({
           line_items,
+          customer_email: email,
+          shipping_options: [
+            {
+              shipping_rate_data: {
+                type: "fixed_amount",
+                fixed_amount: {
+                  amount: shippingFee() * 100,
+                  currency: "usd",
+                },
+                display_name: "standard shiping",
+                // Delivers between 5-7 business days
+                delivery_estimate: {
+                  minimum: {
+                    unit: "business_day",
+                    value: 5,
+                  },
+                  maximum: {
+                    unit: "business_day",
+                    value: 7,
+                  },
+                },
+              },
+            },
+            {
+              shipping_rate_data: {
+                type: "fixed_amount",
+                fixed_amount: {
+                  amount: (shippingFee() + 10) * 100,
+                  currency: "usd",
+                },
+                display_name: "Next day air",
+                // Delivers in exactly 1 business day
+                delivery_estimate: {
+                  minimum: {
+                    unit: "business_day",
+                    value: 1,
+                  },
+                  maximum: {
+                    unit: "business_day",
+                    value: 1,
+                  },
+                },
+              },
+            },
+          ],
           mode: "payment",
           metadata,
           success_url: `${req.headers.origin}/account/purchase`,
-          cancel_url: `${req.headers.origin}/account/purchase/?canceled=true`,
+          cancel_url: `${req.headers.origin}/checkout/?canceled=true`,
         });
 
         console.log(session.url);

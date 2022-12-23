@@ -42,43 +42,78 @@ function ProductItemDetailView() {
   return (
     <Container maxWidth="lg" color="white">
       <Grid container spacing={2} color="primary" sx={{ padding: 2 }}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={5}>
           <ProductImages images={curProduct?.images} />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6" component="h4">
-            {curProduct?.title}
-          </Typography>
-          <Typography variant="body1">{curProduct?.description}</Typography>
-          <ProductRating
-            ratings={curProduct?.ratings}
-            sold={curProduct?.sold}
-          />
-          <hr />
-          <ProductPricing
-            price={curPrice}
-            originalPrice={curProduct?.originalPrice}
-          />
-          <hr />
-          <ProductExtras />
-          <ProductQuantityEditor stock={curProduct?.stock} />
-          <hr />
-          <Stack direction="row" justifyContent="space-between">
-            <Typography variant="body2">Stocks: {curProduct?.stock}</Typography>
-            <Typography variant="body2">Sold: {curProduct?.sold}</Typography>
-            <Typography variant="body2">
-              Category: {curProduct?.category}
+        <Grid item xs={12} sm={7}>
+          <div className="overflow-y-auto h-full max-h-[500px] hide-scroll">
+            <Typography
+              className="sticky top-0 bg-white z-10"
+              variant="h6"
+              component="h4"
+            >
+              {curProduct?.title}
             </Typography>
-            <Typography variant="body2">: </Typography>
-          </Stack>
-          <ProductsMoreInfo
-            shipingFee={curProduct?.shipingFee}
-            onSale={curProduct?.onSale}
-          />
+            <Typography variant="body1">{curProduct?.description}</Typography>
+            <ProductRating
+              ratings={curProduct?.ratings}
+              sold={curProduct?.sold}
+            />
+            <hr />
+            <ProductPricing
+              price={curPrice}
+              originalPrice={curProduct?.originalPrice}
+            />
+            <hr />
+            <ProductExtras />
+            <ProductQuantityEditor stock={curProduct?.stock} />
+            <hr />
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="body2">
+                Stocks: {curProduct?.stock}
+              </Typography>
+              <Typography variant="body2">Sold: {curProduct?.sold}</Typography>
+              <Typography variant="body2">
+                Category: {curProduct?.category}
+              </Typography>
+              <Typography variant="body2">: </Typography>
+            </Stack>
+            <ProductsMoreInfo
+              shipingFee={curProduct?.shipingFee}
+              onSale={curProduct?.onSale}
+            />
+            <div>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Laudantium pariatur non tenetur quis distinctio eos facere, unde
+              assumenda porro beatae illo, iure in magni sint libero quod
+              similique et esse. Lorem ipsum dolor sit amet consectetur
+              adipisicing elit. Laudantium pariatur non tenetur quis distinctio
+              eos facere, unde assumenda porro beatae illo, iure in magni sint
+              libero quod similique et esse. Lorem ipsum dolor sit amet
+              consectetur adipisicing elit. Laudantium pariatur non tenetur quis
+              distinctio eos facere, unde assumenda porro beatae illo, iure in
+              magni sint libero quod similique et esse. Lorem ipsum dolor sit
+              amet consectetur adipisicing elit. Laudantium pariatur non tenetur
+              quis distinctio eos facere, unde assumenda porro beatae illo, iure
+              in magni sint libero quod similique et esse. Lorem ipsum dolor sit
+              amet consectetur adipisicing elit. Laudantium pariatur non tenetur
+              quis distinctio eos facere, unde assumenda porro beatae illo, iure
+              in magni sint libero quod similique et esse. Lorem ipsum dolor sit
+              amet consectetur adipisicing elit. Laudantium pariatur non tenetur
+              quis distinctio eos facere, unde assumenda porro beatae illo, iure
+              in magni sint libero quod similique et esse. Lorem ipsum dolor sit
+              amet consectetur adipisicing elit. Laudantium pariatur non tenetur
+              quis distinctio eos facere, unde assumenda porro beatae illo, iure
+              in magni sint libero quod similique et esse. Lorem ipsum dolor sit
+              amet consectetur adipisicing elit. Laudantium pariatur non tenetur
+              quis distinctio eos facere, unde assumenda porro beatae illo, iure
+              in magni sint libero quod similique et esse.
+            </div>
+          </div>
         </Grid>
       </Grid>
       <br />
-      <Typography>Related Products</Typography>
+      <Typography variant="h5">Related Products</Typography>
       <hr />
       <br />
       <ProductsLists products={products} />

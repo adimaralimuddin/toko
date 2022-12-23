@@ -5,10 +5,13 @@ import useCart from "../../controls/cartControl";
 import { useUser } from "@auth0/nextjs-auth0";
 import useAccount from "../../controls/accountControl";
 import Link from "next/link";
+import LoaderCartItemList from "../loader/LoaderCartItemList";
+import NoItems from "../loader/NoItems";
 
 function CheckoutMainPage() {
   const {
     cart,
+    loading,
     placeOrder,
     getSelectedCarts,
     checkedItems,
@@ -20,8 +23,12 @@ function CheckoutMainPage() {
     set,
   } = useCart();
   const { user } = useUser();
-  const { details } = useAccount();
+  const { details, getAccountDetails } = useAccount();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    getAccountDetails(user?.email);
+  }, [user]);
 
   useEffect(() => {
     getSelectedItems();
@@ -33,7 +40,7 @@ function CheckoutMainPage() {
 
   const onPlaceOrderHandler = () => {
     if (checkAddress()) {
-      placeOrder();
+      placeOrder(user, details?._id);
     } else {
       setOpen(true);
     }
@@ -52,6 +59,17 @@ function CheckoutMainPage() {
     }
   };
 
+  if (loading) return <LoaderCartItemList />;
+
+  if (checkedItems?.length == 0)
+    return (
+      <div className="h-[70vh] flex flex-col items-center justify-center text-gray-500">
+        <NoItems text="Nothing To Checkout!">
+          <small>check some item in your cart</small>
+        </NoItems>
+      </div>
+    );
+
   return (
     <Container maxWidth="lg">
       <Box>
@@ -67,13 +85,13 @@ function CheckoutMainPage() {
           />
         ))}
       </Box>
-      <div className="text-gray-600 bg-orange-50 ring-1 flex flex-col ring-orange-200 min-h-[200px] my-5">
-        <div className="flex flex-wrap items-center justify-between p-2 ">
+      <div className="text-slate-700 shadow-sm bg-green-50 ring-1 flex flex-col ring-green-100 min-h-[200px] my-5 rounded-lg">
+        <div className="flex flex-wrap items-center justify-between p-3 ">
           <h1>Payment Method</h1>
           <select
             name=""
             id=""
-            className="p-2 bg-transparent ring-1 ring-orange-400d"
+            className="p-2 ring-indigo-300 text-indigo-500 bg-transparent ring-1 rounded-md px-3"
             defaultValue={paymentMethod}
             onChange={(e) => set({ paymentMethod: e.target.value })}
           >
@@ -81,7 +99,7 @@ function CheckoutMainPage() {
             <option value="cash">Cask On Dilivery</option>
           </select>
         </div>
-        <div className="flex flex-wrap items-center px-2 justify-between mb-3">
+        <div className="flex flex-wrap items-center px-3 justify-between mb-3">
           <p>Shiped To</p>
           {checkAddress() ? (
             <div>
@@ -151,8 +169,13 @@ function CheckoutMainPage() {
             </p>
           </span>
           <span className="flex-1 ring-1d min-w-[200px] flex items-center justify-between py-1">
-            <p>shiping total:</p>
-            <p>${324?.toFixed(2)}</p>
+            <p>Shiping Fee Total:</p>
+            <p>
+              $
+              {checkedItems
+                ?.reduce((total, item) => total + item?.shipingFee, 0)
+                ?.toFixed(2)}
+            </p>
           </span>
           <span className="flex-1 ring-1d min-w-[200px] flex items-center justify-between py-1">
             <p>Total Payment:</p>
@@ -160,7 +183,9 @@ function CheckoutMainPage() {
               $
               {checkedItems
                 ?.reduce(
-                  (price, item) => price + item.curPrice * item.quantity,
+                  (price, item) =>
+                    price + item.curPrice * item.quantity + item?.shipingFee ||
+                    0,
                   0
                 )
                 ?.toFixed(2)}
@@ -171,7 +196,7 @@ function CheckoutMainPage() {
         <div className="flex justify-end p-3">
           <button
             onClick={onPlaceOrderHandler}
-            className="bg-[#FF6363] text-white p-2 w-full max-w-xs font-semibold text-lg hover:bg-[#ff8080] "
+            className="bg-primary text-white p-2 w-full max-w-[200px] font-semibold text-lg hover:bg-primhov "
           >
             Place Order
           </button>
@@ -186,7 +211,7 @@ export default CheckoutMainPage;
 function Item({ product }) {
   console.log(product);
   return (
-    <div className="ring-1 ring-gray-300 p-3 mt-5">
+    <div className="ring-1 ring-gray-200 shadow-sm rounded-lg bg-white p-3 mt-5">
       <Grid container spacing={2}>
         <Grid item md={6} sm={6} xs={12}>
           <Stack direction="row" justifyContent="center">
@@ -197,31 +222,35 @@ function Item({ product }) {
               sx={{ minWidth: "100px", minHeigth: "100px" }}
               objectFit="contain"
             />
-            <Typography ml>
+            <Typography variant="body1" ml>
               {product?.name?.substring(0, 150)}
               {product?.name?.length >= 150 && "..."}
             </Typography>
           </Stack>
         </Grid>
-        <Grid item md={2} sm={2} xs={4}>
+        <Grid item md={2} sm={2} xs={4} className="text-center">
           <Typography variant="body2">Unit Price</Typography>
           <Typography>${product?.curPrice}</Typography>
         </Grid>
-        <Grid item md={2} sm={2} xs={4}>
+        <Grid item md={2} sm={2} xs={4} className="text-center">
           <Typography variant="body2">Amount</Typography>
           <Typography>{product?.quantity}</Typography>
         </Grid>
-        <Grid item md={2} sm={2} xs={4}>
+        <Grid item md={2} sm={2} xs={4} className="text-center">
           <Typography variant="body2">Item Subtotal</Typography>
           <Typography>{product?.total}</Typography>
         </Grid>
       </Grid>
       <hr className="my-2" />
-      <Stack direction="row" spacing={1}>
+      <Stack direction="row" spacing={2}>
         <Box sx={{ flexGrow: 1 }} />
         <Box item>
-          <Typography variant="body2">Shiping Fee</Typography>
-          <Typography>$20 test</Typography>
+          <Typography mr variant="body2">
+            Shiping Fee
+          </Typography>
+          <Typography>
+            {"$" + product?.shipingFee + ".00" || "free shiping"}
+          </Typography>
         </Box>
         <Box item sx={{ marginX: "10px" }}>
           <Typography variant="body2">

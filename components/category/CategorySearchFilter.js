@@ -6,8 +6,8 @@ import { Button, Typography } from "@mui/material";
 function CategorySearchFilter({ results }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className=" md:hiddend h-min flex flex-wrap items-center sticky w-full bg-white z-50 top-[88px] py-2 px-2 shadow-sm ">
-      <div className="md:hidden mr-1">
+    <div className=" md:hiddend h-min flex flex-wrap items-center sticky w-fulld bg-white z-50 top-[102px] py-1 px-2 rounded-xl shadow-sm ">
+      <div className="md:hidden ml-2">
         <Button
           size="small"
           onClick={(_) => setOpen((p) => !p)}
@@ -18,7 +18,7 @@ function CategorySearchFilter({ results }) {
         </Button>
       </div>
       <div>
-        <Typography>({results}) items(s) found</Typography>
+        <Typography>{results} items(s) found</Typography>
       </div>
       {open && <MainQuerySideBar flex />}
     </div>

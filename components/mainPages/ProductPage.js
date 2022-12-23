@@ -18,7 +18,7 @@ function ProductPage({ productLists }) {
   if (loading) return <LoadingView />;
 
   return (
-    <Container maxWidth="lg">
+    <div className="max-w-[1200px] mx-auto ">
       <BannerMain />
       <ProductCategories />
       <ProductCategory
@@ -28,7 +28,7 @@ function ProductPage({ productLists }) {
         }
       />
       <ProductsLists products={products} />
-    </Container>
+    </div>
   );
 }
 

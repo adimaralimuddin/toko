@@ -1,46 +1,52 @@
 import { model, models, Schema } from "mongoose";
 
-const TransactionSchema = new Schema({
+const TransactionSchema = new Schema(
+  {
     userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     productId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Product',
-        required: true
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+      required: true,
     },
     description: {
-        type: String,
+      type: String,
     },
     name: {
-        type: String,
+      type: String,
     },
     quantity: {
-        type: Number,
-        default: 1,
+      type: Number,
+      default: 1,
     },
     curPrice: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     total: Number,
     image: String,
+    shipingFee: {
+      type: Number,
+    },
     status: {
-        type: 'String',
-        required: true,
-        default: 'packing'
+      type: "String",
+      required: true,
+      default: "packing",
     },
     canceled: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     date_canceled: {
-        type: String,
-    }
-}, {
-    timestamps: true
-})
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default models.Transaction || model('Transaction', TransactionSchema)
+export default models.Transaction || model("Transaction", TransactionSchema);

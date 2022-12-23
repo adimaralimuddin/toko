@@ -1,6 +1,5 @@
 import {
   Badge,
-  Button,
   Checkbox,
   Divider,
   Drawer,
@@ -11,9 +10,8 @@ import {
 } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ClearOutlinedIcon from "@mui/icons-material/ClearOutlined";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import QuantityEditor from "./others/QuantityEditor";
-import { toggle } from "../redux/cartSlice";
 import useCart from "../controls/cartControl";
 import useAccount from "../controls/accountControl";
 import LocalMallRoundedIcon from "@mui/icons-material/LocalMallRounded";
@@ -26,9 +24,7 @@ import { useRouter } from "next/router";
 loadStripe();
 
 function Cart({ user }) {
-  if (!user) return null;
-  const { quantity, total, open } = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
+  const { quantity, total } = useSelector((state) => state.cart);
   const {
     set,
     cart,
@@ -52,8 +48,6 @@ function Cart({ user }) {
     router.push("/checkout");
   };
 
-  console.log(details);
-
   useEffect(() => {
     if (user && details) {
       set({ userId: details?._id });
@@ -63,8 +57,9 @@ function Cart({ user }) {
 
   useEffect(() => {
     setAllAreSelected(ifItemsAreChecked());
-    console.log(ifItemsAreChecked());
   }, [cart]);
+
+  if (!user) return null;
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -165,14 +160,11 @@ function ProductItem({
   deletePayItem,
   incPayItemQnty,
   decPayItemQnty,
-  deselect,
 }) {
   const onSelectHandler = (e) => {
     const value = e.target.checked;
     selectItem(value, product?._id);
   };
-
-  // console.log(product);
 
   return (
     <div className="flex border-b py-2 sm:flex-column content-right flex-wrap items-center justify-between hover:bg-gray-100 p-1">

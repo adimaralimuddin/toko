@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       originalPrice,
     },
   } = req;
-  dbConnect();
+ await dbConnect();
 
   // if (method === "GET") {
   //   if (type == "all") {
@@ -71,7 +71,7 @@ export default async function handler(req, res) {
   // }
 
   if (method === "POST") {
-    console.log(body, method);
+    // console.log(body, method);
 
     switch (body.type) {
       case "all":

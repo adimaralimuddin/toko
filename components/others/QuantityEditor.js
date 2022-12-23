@@ -1,9 +1,8 @@
 
 
 import { Button, ButtonGroup } from '@mui/material'
-import React from 'react'
 
-function QuantityEditor({ increase, decrease, quantity, simple }) {
+function QuantityEditor({ increase, decrease, quantity }) {
     return (
         <ButtonGroup size='small' variant="outlined" aria-label="outlined button group">
             <Button fontSize='small' onClick={increase}>+</Button>

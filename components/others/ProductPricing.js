@@ -4,18 +4,20 @@ function ProductPricing({ price, simple, originalPrice }) {
   return (
     <div className={"text-left " + (simple ? "" : " py-3 ")}>
       <Typography
-        sx={{ fontWeight: 700 }}
+        sx={{ fontWeight: 500 }}
         variant={simple ? "h7" : "h4"}
         color="primary"
       >
         $ {price}
       </Typography>
-      <p className="text-sm">
+      <small className="text-[.7rem] block">
         <span className={" line-through text-gray-400 mr-1"}>
           ${Number.parseFloat((originalPrice / 100) * price + price).toFixed(2)}
         </span>
-        <span>-{originalPrice}%</span>
-      </p>
+        <span className="bg-indigo-100 text-indigo-600 p-[2px] rounded-md font-semibold">
+          -{originalPrice}%
+        </span>
+      </small>
     </div>
   );
 }

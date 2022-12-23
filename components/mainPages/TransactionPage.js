@@ -16,11 +16,9 @@ function TransactionPage() {
 
   useEffect(() => {
     set({ userId: details?._id });
-    console.log("transaction id set ", details);
     getTransactions(details?._id);
   }, [details]);
 
-  console.log(selectedTransactions);
 
   return (
     <div>

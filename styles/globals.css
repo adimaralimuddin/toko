@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html,
 body {
   padding: 0;
@@ -22,5 +21,14 @@ a {
 
 input,
 textarea {
-  border: 1px solid black
+  border: 1px solid black;
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

@@ -11,9 +11,8 @@ import {
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Logout, ShoppingCartCheckout, Person } from "@mui/icons-material";
-// import useCart from "../../controls/cartControl";
 
-function UserMainMenu({ user, children }) {
+function UserMainMenu({ user }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const router = useRouter();
