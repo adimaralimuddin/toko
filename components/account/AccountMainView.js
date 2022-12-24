@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import useAccount from "../../controls/accountControl";
+import AvatarBig from "../elements/AvatarBig";
 
 function AccountMainPage() {
   const { user } = useUser();
@@ -23,13 +24,16 @@ function AccountMainPage() {
 
   return (
     <Container maxWidth="md">
-      <div className="p-5 m-2 bg-white flex-1 shadow-md">
+      <div className="p-5 m-2 bg-white flex-1 shadow-md rounded-xl">
         <Box className="mb-3">
-          <Typography variant="h6">My Profile</Typography>
-          <Typography variant="body2">Manage my profile</Typography>
+          <Typography variantd="h6">My Profile</Typography>
+          {/* <Typography variant="body2">Manage my profile</Typography> */}
         </Box>
-        {/* <Divider /> */}
-
+        <Stack justifyItems={"center"} alignItems="center" flexDirection="row">
+          <AvatarBig src={user?.picture} dname={user?.nickname} />
+          <Typography variant="h6">{user?.nickname}</Typography>
+        </Stack>
+        <hr />
         <Box>
           <Updatable disabled label="Email" value={user?.email} />
           <Updatable
@@ -39,7 +43,7 @@ function AccountMainPage() {
           />
           <Divider />
           <Stack spacing={2} direction="column" sx={{ marginTop: 2 }}>
-            <Typography variant="h6">Shipping Address</Typography>
+            <Typography dvariant="h6">Shipping Address</Typography>
             <Updatable
               label="Country"
               value={details?.country}

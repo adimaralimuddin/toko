@@ -15,13 +15,18 @@ function MainHeader() {
       <AppBar position="sticky" color="white" elevation={4}>
         <div className="bg-white -50">
           <div className="bg-indigo-50">
-            <div className="flex items-center max-w-6xl m-auto w-full text-slate-400">
-              <small>about toky</small>
-            </div>
+            <ul className="flex text-[.8rem] items-center justify-betweend gap-4 max-w-6xl m-auto w-full text-slate-500 p-1 px-3">
+              <li className="mr-auto">about toky</li>
+              <li>Tentang</li>
+              <li>Tokopedia</li>
+              <li>Mitra</li>
+              <li>Tokopedia</li>
+              <li> Pusat</li>
+            </ul>
           </div>
-          <Toolbar className="max-w-6xl mx-auto w-full p-0 ">
+          <Toolbar className="max-w-6xl mx-auto w-full p-0 px-6 ">
             <Link href="/">
-              <div className="cursor-pointer flex hover:scale-105">
+              <div className="cursor-pointer items-center flex hover:scale-105">
                 <StoreMallDirectoryIcon
                   sx={{ marginRight: "2px" }}
                   fontSize="large"
@@ -42,7 +47,7 @@ function MainHeader() {
                     },
                   }}
                 >
-                  eBeli
+                  Beli
                 </Typography>
               </div>
             </Link>

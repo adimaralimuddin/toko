@@ -48,7 +48,7 @@ function ProductItemDetailView() {
         <Grid item xs={12} sm={7}>
           <div className="overflow-y-auto h-full max-h-[500px] hide-scroll">
             <Typography
-              className="sticky top-0 bg-white z-10"
+              className="sticky top-0 bg-slate-50 z-10"
               variant="h6"
               component="h4"
             >
@@ -64,11 +64,14 @@ function ProductItemDetailView() {
               price={curPrice}
               originalPrice={curProduct?.originalPrice}
             />
-            <hr />
             <ProductExtras />
             <ProductQuantityEditor stock={curProduct?.stock} />
             <hr />
-            <Stack direction="row" justifyContent="space-between">
+            <Stack
+              className="py-3"
+              direction="row"
+              justifyContent="space-between"
+            >
               <Typography variant="body2">
                 Stocks: {curProduct?.stock}
               </Typography>
@@ -82,33 +85,7 @@ function ProductItemDetailView() {
               shipingFee={curProduct?.shipingFee}
               onSale={curProduct?.onSale}
             />
-            <div>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Laudantium pariatur non tenetur quis distinctio eos facere, unde
-              assumenda porro beatae illo, iure in magni sint libero quod
-              similique et esse. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Laudantium pariatur non tenetur quis distinctio
-              eos facere, unde assumenda porro beatae illo, iure in magni sint
-              libero quod similique et esse. Lorem ipsum dolor sit amet
-              consectetur adipisicing elit. Laudantium pariatur non tenetur quis
-              distinctio eos facere, unde assumenda porro beatae illo, iure in
-              magni sint libero quod similique et esse. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Laudantium pariatur non tenetur
-              quis distinctio eos facere, unde assumenda porro beatae illo, iure
-              in magni sint libero quod similique et esse. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Laudantium pariatur non tenetur
-              quis distinctio eos facere, unde assumenda porro beatae illo, iure
-              in magni sint libero quod similique et esse. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Laudantium pariatur non tenetur
-              quis distinctio eos facere, unde assumenda porro beatae illo, iure
-              in magni sint libero quod similique et esse. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Laudantium pariatur non tenetur
-              quis distinctio eos facere, unde assumenda porro beatae illo, iure
-              in magni sint libero quod similique et esse. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Laudantium pariatur non tenetur
-              quis distinctio eos facere, unde assumenda porro beatae illo, iure
-              in magni sint libero quod similique et esse.
-            </div>
+            <div></div>
           </div>
         </Grid>
       </Grid>
@@ -137,26 +114,64 @@ function Loader() {
       <br />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <Skeleton variant="box" height={300} sx={{ heigth: "300px" }} />
+          <Skeleton
+            className="rounded-lg"
+            variant="box"
+            height={300}
+            sx={{ heigth: "300px" }}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <div className="flex flex-col justify-between h-full">
             <div>
-              <Skeleton variant="box" height={30} />
-              <Skeleton variant="text" />
+              <Skeleton className="rounded-lg" variant="box" height={30} />
+              <Skeleton className="rounded-lg" variant="text" />
+              <Skeleton className="rounded-lg" variant="text" width="40%" />
+              <Skeleton className="rounded-lg" variant="text" width="60%" />
               <br />
               <div className="flex flex-wrap justify-between">
-                <Skeleton variant="text" width={"30%"} m />
-                <Skeleton variant="text" width={"30%"} m />
-                <Skeleton variant="text" width={"30%"} m />
+                <Skeleton
+                  className="rounded-lg"
+                  variant="text"
+                  width={"30%"}
+                  m
+                />
+                <Skeleton
+                  className="rounded-lg"
+                  variant="text"
+                  width={"30%"}
+                  m
+                />
+                <Skeleton
+                  className="rounded-lg"
+                  variant="text"
+                  width={"30%"}
+                  m
+                />
               </div>
-              <Skeleton variant="text" />
+              <Skeleton className="rounded-lg" variant="text" />
             </div>
             <div className="flex flex-wrap justify-between">
-              <Skeleton variant="box" height={50} width="45%" />
-              <Skeleton variant="box" height={50} width="45%" />
+              <Skeleton
+                className="rounded-lg"
+                variant="box"
+                height={40}
+                width="45%"
+              />
+              <Skeleton
+                className="rounded-lg"
+                variant="box"
+                height={40}
+                width="45%"
+              />
             </div>
-            <br />
+            <div className="flex flex-wrap justify-between">
+              <Skeleton width="30%" className="rounded-lg" variant="text" />
+              <Skeleton width="30%" className="rounded-lg" variant="text" />
+              <Skeleton width="30%" className="rounded-lg" variant="text" />
+            </div>
+
+            {/* <br /> */}
           </div>
         </Grid>
       </Grid>

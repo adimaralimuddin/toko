@@ -5,6 +5,7 @@ function ProductPricing({ price, simple, originalPrice }) {
     <div className={"text-left " + (simple ? "" : " py-3 ")}>
       <Typography
         sx={{ fontWeight: 500 }}
+        className="font-semibold"
         variant={simple ? "h7" : "h4"}
         color="primary"
       >

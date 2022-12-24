@@ -50,8 +50,7 @@ function InputSearchBox() {
         >
           <Box className="p-3 flex justify-between max-w-5xl mx-auto">
             <Typography color="primary">
-              Result for :&quot{title}&quot ({searchItems?.length}) item(s)
-              found
+              Result for :{title} ({searchItems?.length}) item(s) found
             </Typography>
             <Button
               onClick={(_) => setOpenSearchItems(false)}

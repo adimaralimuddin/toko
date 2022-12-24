@@ -14,6 +14,12 @@ export const theme = createTheme({
     white: {
       main: "#ffffff",
     },
+    green: {
+      main: "#2bd45e",
+    },
+    warm: {
+      main: "#ff005f",
+    },
   },
   typography: {
     h6: {

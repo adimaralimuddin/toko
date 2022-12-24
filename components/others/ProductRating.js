@@ -6,7 +6,7 @@ function ProductRating({ ratings, sold, simple }) {
       <Stack direction="row" alignItems="center" spacing={1}>
         <Rating
           value={ratings}
-          max={3}
+          max={1}
           precision={0.5}
           readOnly
           size={!simple ? "medium" : "small"}
@@ -15,7 +15,7 @@ function ProductRating({ ratings, sold, simple }) {
         {!simple && <Divider orientation="vertical" flexItem />}
         {!simple && (
           <Typography variant="body2" noWrap>
-            {ratings} Ratings
+            {ratings} rating
           </Typography>
         )}
         {!simple && <Divider orientation="vertical" flexItem />}

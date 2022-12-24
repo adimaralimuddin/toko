@@ -24,12 +24,23 @@ function ProductCategory({ category, url }) {
       {/* <Typography variant="h6" component="h4">
         {category?.toUpperCase()}S
       </Typography> */}
+      {/* <span className="relative p-0">
+        <img
+          className="absolute top-0 left-4d min-w-[200px]d aspect-autod w-[350px]"
+          src="/img/discount.gif"
+        />
+      </span> */}
       <Grid container spacing={0}>
         <Grid item xs={12} md={7} spacing={0} alignItems="stretch">
           <div
-            className=" min-h-[300px] bg-cover h-full bg-center bg-no-repeat flex justify-between items-center "
+            className="relative min-h-[300px] bg-cover h-full bg-center bg-no-repeat flex justify-between items-center "
             style={{ backgroundImage: `url(${url})` }}
-          ></div>
+          >
+            <img
+              className="absolute top-4 -left-2 min-w-[200px]d aspect-autod w-full max-w-[170px] p-3 px-6 rounded-r-full bg-red-500"
+              src="/img/discount.gif"
+            />
+          </div>
         </Grid>
         <Grid
           className="p-2 bg-red-500d "
@@ -51,7 +62,7 @@ function ProductCategory({ category, url }) {
 
 function ProductItem({ product }) {
   return (
-    <Grid sx={6} sm={4} md={4} item alignItems="stretch" className="p-1">
+    <Grid xs={4} sm={4} md={4} item alignItems="stretch" className="p-1">
       <div className=" flex-1 ring-1d flex flex-col w-full h-full justify-between overflow-hidden  cursor-pointer hover:shadow-md rounded-xl hover:ring-1 ring-slate-200">
         <Image
           src={product?.images?.[0]?.secure_url || ""}

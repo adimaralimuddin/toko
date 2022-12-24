@@ -8,8 +8,8 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 function ProductItemCardView({ product }) {
   return (
     <Link href={`/products/${product?._id}`}>
-      <Grid xs={6} sm={4} md={3} lg={2} item>
-        <div className="shadow-[0_2px_5px_0px_rgba(0,0,0,0.1)] ring-1 h-fulld flexd flex-col justify-between ring-slate-100 cursor-pointer transition-all hover:ring-slate-200  hover:-translate-y-1 bg-white rounded-xl ">
+      <Grid xs={6} sm={4} md={3} lg={2} item className="ring-1d">
+        <div className="shadow-[0_2px_5px_0px_rgba(0,0,0,0.1)] ring-1 h-full flex flex-col justify-between ring-slate-100 cursor-pointer transition-all hover:ring-slate-200  hover:-translate-y-1 bg-white rounded-xl ">
           <div>
             {product?.onSale && (
               <div className="relative">
@@ -33,8 +33,12 @@ function ProductItemCardView({ product }) {
                 objectFit="cover"
               />
             )}
+            {product?.sold > 800 && (
+              <div className="bg-gradient-to-r text-[.9rem] flex items-center from-pink-500 to-pink-200 text-white px-3 p-[2px] rounded-br-full font-bold">
+                <small> Flash Back</small>
+              </div>
+            )}
           </div>
-
           <div className="px-2 text-gray-800">
             <Typography
               variant="body2"
@@ -51,6 +55,13 @@ function ProductItemCardView({ product }) {
               simple="true"
             />
           </div>
+          {product?.ratings > 4.8 && (
+            <div className="p-1 px-2 ">
+              <small className=" text-[.7rem] rounded-md bg-green-200 text-green-600 p-[2px] px-2 font-bold">
+                Cashback
+              </small>
+            </div>
+          )}
           <div className="flex items-center flex-wrap justify-between px-2 text-gray-600">
             <ProductRating ratings={product?.ratings} simple="true" />
             {product?.sold >= 1 && (

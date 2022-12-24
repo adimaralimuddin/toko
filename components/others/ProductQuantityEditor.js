@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useAccount from "../../controls/accountControl";
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
 
 function ProductQuantityEditor({ stock }) {
   const { user } = useUser();
@@ -37,7 +38,6 @@ function ProductQuantityEditor({ stock }) {
 
   const onBuyNowHandler = async () => {
     if (user) {
-     
       await addCart(true);
       router.push("/checkout");
     } else {
@@ -48,7 +48,9 @@ function ProductQuantityEditor({ stock }) {
   return (
     <div className="my-3 ">
       <span className="flex items-center py-3 ">
-        <Typography mr={2}>Quantity</Typography>
+        <Typography variant="body2" mr={2}>
+          Quantity
+        </Typography>
         <QuantityEditor
           increase={increase}
           decrease={decrease}
@@ -59,19 +61,19 @@ function ProductQuantityEditor({ stock }) {
         </Typography>
       </span>
       <Stack
-        sx={{ maxWidth: "500px" }}
+        sx={{ maxWidth: "400px" }}
         spacing={1}
         direction={{ xs: "column", md: "row" }}
       >
         <Button
-          size="large"
-          sx={{ flex: 1, minWidht: "200px", whiteSpace: "nowrap" }}
-          startIcon={<AddShoppingCartIcon />}
+          className="flex-1 min-w-[180px] whitespace-nowrap font-semibold"
+          startIcon={<AddTwoToneIcon />}
           onClick={onAddToCartHandler}
           variant="outlined"
         >
           Add To Cart
         </Button>
+
         <PrimaryButton onClick={onBuyNowHandler} className="flex-1">
           BUY NOW
         </PrimaryButton>
@@ -104,11 +106,7 @@ function UserLoginModal({ handleClose, open }) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Typography
-          id="modal-modal-title"
-          variant="body1"
-          component="h2"
-        >
+        <Typography id="modal-modal-title" variant="body1" component="h2">
           Login To Your TOKO Account!
         </Typography>
         <br />

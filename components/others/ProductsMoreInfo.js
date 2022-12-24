@@ -22,22 +22,19 @@ function ProductsMoreInfo({ product }) {
         <LocalShippingIcon color="primary" size="small" />
         <Typography ml variant="body2">
           Shiping to{" "}
-          <span className="font-semibold text-gray-500">
-            {fullAddress() }
-          </span>
+          <span className="font-semibold text-gray-500">{fullAddress()}</span>
         </Typography>
       </div>
       <div className="flex items-center my-1">
-        <StoreIcon color="text " />
+        <StoreIcon color="primary" />
         <Typography ml variant="body2">
-         
-          Sold and shipped by <span className="font-semibold">TOKO</span>
+          Sold and shipped by <span className="font-semibold">BELI</span>
         </Typography>
       </div>
       <div className="flex items-center my-1">
-        <GppGoodIcon color="primary" />
-        <Typography ml variant="body2" color="primary">
-          TOKO Guarantee
+        <GppGoodIcon color="green" />
+        <Typography ml variant="body2" color="green">
+          BELI Guarantee
         </Typography>
       </div>
     </div>

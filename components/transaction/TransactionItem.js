@@ -10,7 +10,7 @@ function TransactionItem({ data, cancelOrder, removeItem }) {
   };
 
   return (
-    <div className="my-4 p-3 ring-1 ring-gray-200 flex flex-wrap flex-col justify-between bg-white text-gray-500">
+    <div className="my-4 p-3 rounded-lg ring-1 ring-gray-200 flex flex-wrap flex-col justify-between bg-white text-gray-500">
       <Link className="m-2" href={`/products/${data?.productId}`}>
         <div className="flex ">
           <img
@@ -30,21 +30,21 @@ function TransactionItem({ data, cancelOrder, removeItem }) {
         <div className="px-2 ">
           <small className="flex justify-betweend">
             <span>Price :</span>
-            <span className="text-md ml-2 font-semibold text-orange-500">
+            <span className="text-md ml-2 font-semibold text-primary">
               {" "}
               {data?.curPrice}
             </span>
           </small>
           <small className="flex justify-betweend">
             <span>Quantity :</span>
-            <span className="text-md ml-2 font-semibold text-orange-500">
+            <span className="text-md ml-2 font-semibold text-primary">
               {" "}
               {data?.quantity}
             </span>
           </small>
           <small className="flex justify-between">
             <span>Order Total :</span>
-            <span className="text-md ml-2 font-semibold text-orange-500">
+            <span className="text-md ml-2 font-semibold text-primary">
               {" "}
               ${data?.total}
             </span>
@@ -56,7 +56,7 @@ function TransactionItem({ data, cancelOrder, removeItem }) {
             <>
               <Button
                 variant="outlined"
-                color="warning"
+                color="warm"
                 size="small"
                 sx={{ margin: "10px 0" }}
                 onClick={onCancelHandler}
@@ -71,7 +71,10 @@ function TransactionItem({ data, cancelOrder, removeItem }) {
               >
                 <div className="p-5 w-full min-h-[200px] flex flex-col text-gray-500 items-center justify-center max-w-sm absolute bg-white top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
                   <h2>Are you sure to cancel your order?</h2>
-                  <button onClick={(_) => cancelOrder(data?._id)} className="ring-1 ring-orange-600 font-semibold text-lg px-5 py-1 my-2 text-orange-600 hover:bg-orange-600 hover:text-white">
+                  <button
+                    onClick={(_) => cancelOrder(data?._id)}
+                    className="ring-1 ring-pink-600 font-semibold text-lg px-5 py-1 my-2 text-pink-600 hover:bg-pink-600 hover:text-white"
+                  >
                     Cancel Order
                   </button>
                 </div>

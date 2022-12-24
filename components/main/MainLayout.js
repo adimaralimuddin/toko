@@ -23,7 +23,7 @@ function MainLayout({ children }) {
   }, [details]);
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-slate-50">
       <MainHeader />
       {children}
       <MainFooter />

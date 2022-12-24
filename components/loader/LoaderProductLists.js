@@ -1,71 +1,141 @@
-import { Container, Grid, Skeleton } from "@mui/material";
+import { Grid, Skeleton } from "@mui/material";
 
-function LoaderProductLists({ maxWidth = "lg" }) {
+function LoaderProductLists() {
   return (
-    <Container maxWidth={maxWidth}>
-      <Grid container spacing={2}>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
-        <Grid item xs={6} md={2} sm={4}>
-          <Skeleton variant="rectangular" height={118} />
-          <Skeleton variant="text" />
-          <Skeleton variant="text" />
-        </Grid>
+    <Grid container spacing={2} className="">
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
       </Grid>
-    </Container>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+      <Grid item xs={6} md={2} sm={4}>
+        <Skeleton className="rounded-xl" variant="rectangular" height={138} />
+        <Skeleton variant="text" className="rounded-lg" width={100} />
+        <Skeleton
+          variant="text"
+          className="rounded-lg"
+          width={70}
+          height={20}
+        />
+        <Skeleton variant="text" className="rounded-lg" dwidth={100} />
+      </Grid>
+    </Grid>
   );
 }
 

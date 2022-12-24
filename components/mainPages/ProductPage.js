@@ -1,4 +1,4 @@
-import { Container, Grid, Skeleton } from "@mui/material";
+import { Container } from "@mui/material";
 import { useEffect } from "react";
 import useProduct from "../../controls/productControls";
 import BannerMain from "../banners/BannerMain";
@@ -18,7 +18,7 @@ function ProductPage({ productLists }) {
   if (loading) return <LoadingView />;
 
   return (
-    <div className="max-w-[1200px] mx-auto ">
+    <div className="max-w-[1200px] mx-auto px-[3%]">
       <BannerMain />
       <ProductCategories />
       <ProductCategory
@@ -37,7 +37,7 @@ export default ProductPage;
 function LoadingView() {
   return (
     <Container maxWidth="lg">
-      <div className="p-5">
+      <div className="py-5">
         <LoaderBannerMain />
         <br />
         <LoaderProductLists />

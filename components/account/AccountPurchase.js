@@ -36,8 +36,8 @@ export default function AccountPurchase() {
       className={
         ` py-2 min-w-[100px] px-2 flex-1 whitespace-nowrap ` +
         (props?.active == props?.children
-          ? " bg-[#FF6363] text-white "
-          : " hover:bg-orange-50 ")
+          ? " bg-primary text-white "
+          : " hover:bg-purple-50 ")
       }
     >
       {props?.children}
@@ -45,8 +45,8 @@ export default function AccountPurchase() {
   );
 
   return (
-    <div className=" flex flex-col max-w-5xl mx-auto p-3 w-full">
-      <div className="bg-white shadow-sm sticky top-[90px] flex flex-wrap justify-between ">
+    <div className="flex-1 bg-green-500d flex flex-col max-w-5xl mx-auto w-full">
+      <div className="bg-white shadow-sm sticky top-[106px] flex flex-wrap justify-between z-10">
         {["All", "To Ship", "To Receive", "Completed", "Canceled"]?.map(
           (tab) => (
             <TabButton active={display} onClick={handleChange} key={tab}>
@@ -55,7 +55,7 @@ export default function AccountPurchase() {
           )
         )}
       </div>
-      <div className="">
+      <div className=" flex-1">
         {loading && <LoaderCartItemList />}
         {selectedTransactions?.map((transaction) => (
           <TransactionItem

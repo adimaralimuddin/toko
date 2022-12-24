@@ -27,21 +27,21 @@ export const sampProdCategories = [
   },
   {
     title: "Furnitures",
-    title: "furniture",
+    name: "furniture",
     img: "https://res.cloudinary.com/dx8mmwiyp/image/upload/v1654346966/furniture-sale-banners-with-photo_23-_ndun8b.jpg",
     catImg:
       "https://res.cloudinary.com/dx8mmwiyp/image/upload/v1653889321/depositphotos_43066423-stock-illustration-house-furnitures-and-appliances_xq1sub.jpg",
   },
   {
     title: "Foods",
-    title: "food",
+    name: "food",
     img: "https://res.cloudinary.com/dx8mmwiyp/image/upload/v1654346583/pngtree-red-food-promotion-banner-png-image_odh2qs.jpg",
     catImg:
       "https://res.cloudinary.com/dx8mmwiyp/image/upload/v1653889318/Product-of-the-Year-2020_ilgznp.jpg",
   },
   {
     title: "Toys",
-    title: "toy",
+    name: "toy",
     img: "https://res.cloudinary.com/dx8mmwiyp/image/upload/v1654346863/banner-lising.jpg.pagespeed.ce_th9stt.jpg",
     catImg:
       "https://res.cloudinary.com/dx8mmwiyp/image/upload/v1653890029/818buVmsvuL._AC_SX679__srs3bu.jpg",
