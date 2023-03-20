@@ -2,7 +2,7 @@ const { default: mongoose } = require("mongoose");
 
 const MONGO_URL = process.env.MONGO_URL;
 
-console.log("MOngo-url", MONGO_URL);
+console.log("MOngo-url here", MONGO_URL);
 
 if (!MONGO_URL) {
   throw new Error("please provide a mongo url");

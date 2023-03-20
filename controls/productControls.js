@@ -1,5 +1,5 @@
-import create from "zustand";
 import axios from "axios";
+import create from "zustand";
 
 var url = "/api/products/";
 const curl = `https://api.cloudinary.com/v1_1/dx8mmwiyp/image/upload`;
@@ -52,6 +52,7 @@ function useProduct() {
       url,
       category ? { ...queryData(), category } : queryData()
     );
+    console.log('this suck! ',data)
     set({ products: data, loading: false });
     return data;
   };
