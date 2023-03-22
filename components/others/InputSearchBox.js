@@ -1,8 +1,8 @@
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import { useProduct } from "../../redux/productSlice";
-import { useRouter } from "next/router";
 import { Button, Container, ListItem, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { useRouter } from "next/router";
+import { useProduct } from "../../redux/productSlice";
 
 function InputSearchBox() {
   const {
@@ -17,7 +17,7 @@ function InputSearchBox() {
 
   return (
     <Box sx={{ flexGrow: 1, minWidth: "100px" }}>
-      <div className=" max-w-[800px] bg-[#8872e0] p-[2px] mx-auto min-w-[50px]  flex flex-1 h-[40px] rounded-md">
+      <div className=" max-w-[800px] bg-[#8872e0] p-[2px] mx-auto min-w-[50px]  flex flex-1 h-[35px] rounded-md">
         <button
           onClick={getSearchItem}
           className="bg-[#8872e0] px-1 text-white text-center justify-center items-center flex w-[40px] rounded-xl "
@@ -36,7 +36,7 @@ function InputSearchBox() {
           }}
           onClick={(_) => setOpenSearchItems(true)}
           style={{ border: "none" }}
-          className=" px-2 min-w-[50px] outline-0 flex-1 ring-0 rounded-sm "
+          className=" px-2 p-0 text-[.9rem] min-w-[50px] outline-0 flex-1 ring-0 rounded-sm "
           type="text"
           autoComplete="off"
           placeholder="Search "

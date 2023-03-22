@@ -1,22 +1,23 @@
-import ProductQuantityEditor from "./others/ProductQuantityEditor";
-import ProductImages from "./ProductImages";
-import { useEffect, useState } from "react";
 import { Container, Grid, Skeleton, Stack, Typography } from "@mui/material";
-import ProductRating from "./others/ProductRating";
-import ProductPricing from "./others/ProductPricing";
-import ProductsLists from "./ProductsLists";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import useCart from "../controls/cartControl";
 import useProduct from "../controls/productControls";
-import { useRouter } from "next/router";
 import ProductExtras from "./others/ProductExtras";
+import ProductPricing from "./others/ProductPricing";
+import ProductQuantityEditor from "./others/ProductQuantityEditor";
+import ProductRating from "./others/ProductRating";
 import ProductsMoreInfo from "./others/ProductsMoreInfo";
+import ProductImages from "./ProductImages";
+import ProductsLists from "./ProductsLists";
 
-function ProductItemDetailView() {
+function ProductItemDetailView({ product }) {
   const { getCurrentProduct, curProduct, curPrice, set, loading } = useCart();
   const { getProductsByCategory } = useProduct();
   const router = useRouter();
   const { id } = router.query;
   const [products, setProducts] = useState();
+  console.log("product detail product", product);
 
   useEffect(() => {
     set({ curProduct: null });

@@ -8,14 +8,15 @@ import LoaderBannerMain from "../loader/LoaderBannerMain";
 import LoaderProductLists from "../loader/LoaderProductLists";
 import ProductsLists from "../ProductsLists";
 
-function ProductPage({ productLists }) {
-  const { products, getMainProduct, loading } = useProduct();
-
+function ProductPage({ productLists, products }) {
+  const { products: clientProducts, getMainProduct, loading } = useProduct();
+  const serverProducts = JSON.parse(products);
+  // console.log("prodddd", serverProducts);
   useEffect(() => {
     getMainProduct();
   }, []);
 
-  if (loading) return <LoadingView />;
+  // if (loading) return <LoadingView />;
 
   return (
     <div className="max-w-[1200px] mx-auto px-[3%]">
@@ -27,7 +28,7 @@ function ProductPage({ productLists }) {
           "https://res.cloudinary.com/dx8mmwiyp/image/upload/v1654343790/snapdeal-great-sale-november-2015_jnoek3.jpg"
         }
       />
-      <ProductsLists products={products} />
+      <ProductsLists products={serverProducts || clientProducts} />
     </div>
   );
 }
