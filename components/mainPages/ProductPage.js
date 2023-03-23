@@ -1,4 +1,6 @@
 import { Container } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useEffect } from "react";
 import useProduct from "../../controls/productControls";
 import BannerMain from "../banners/BannerMain";
@@ -11,6 +13,25 @@ import ProductsLists from "../ProductsLists";
 function ProductPage({ productLists, products }) {
   const { products: clientProducts, getMainProduct, loading } = useProduct();
   const serverProducts = products ? JSON.parse(products) : [];
+
+  const myprods = useQuery(
+    ["products"],
+    async () => {
+      const res = await axios.post("/api/products/", { type: "all" });
+      console.log("res", res);
+      return res?.data;
+    },
+
+    {
+      onSuccess(data) {
+        console.log("data prodas ", data);
+      },
+      onError(err) {
+        console.log("errorrrr", err);
+      },
+    }
+  );
+
   // console.log("prodddd", serverProducts);
   useEffect(() => {
     getMainProduct();
@@ -28,7 +49,7 @@ function ProductPage({ productLists, products }) {
           "https://res.cloudinary.com/dx8mmwiyp/image/upload/v1654343790/snapdeal-great-sale-november-2015_jnoek3.jpg"
         }
       />
-      <ProductsLists products={clientProducts} />
+      <ProductsLists products={myprods.data} />
       {/* <ProductsLists products={serverProducts || clientProducts} /> */}
     </div>
   );

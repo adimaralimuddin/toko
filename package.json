@@ -1,5 +1,3 @@
-
-
 {
   "name": "mongooose-test",
   "version": "0.1.0",
@@ -22,6 +20,7 @@
     "@paypal/react-paypal-js": "^7.7.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@stripe/stripe-js": "^1.31.0",
+    "@tanstack/react-query": "^4.28.0",
     "axios": "^0.27.2",
     "micro": "^9.3.4",
     "mongodb-memory-server": "^8.5.2",
@@ -42,4 +41,3 @@
     "tailwindcss": "^3.0.24"
   }
 }
-
