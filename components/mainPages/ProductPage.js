@@ -10,7 +10,7 @@ import ProductsLists from "../ProductsLists";
 
 function ProductPage({ productLists, products }) {
   const { products: clientProducts, getMainProduct, loading } = useProduct();
-  const serverProducts = JSON.parse(products);
+  const serverProducts = products ? JSON.parse(products) : [];
   // console.log("prodddd", serverProducts);
   useEffect(() => {
     getMainProduct();
@@ -28,7 +28,8 @@ function ProductPage({ productLists, products }) {
           "https://res.cloudinary.com/dx8mmwiyp/image/upload/v1654343790/snapdeal-great-sale-november-2015_jnoek3.jpg"
         }
       />
-      <ProductsLists products={serverProducts || clientProducts} />
+      <ProductsLists products={clientProducts} />
+      {/* <ProductsLists products={serverProducts || clientProducts} /> */}
     </div>
   );
 }

@@ -1,69 +1,73 @@
-
 import { model, models, Schema } from "mongoose";
-const ProductSchema = new Schema({
+const ProductSchema = new Schema(
+  {
     title: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     description: {
-        type: String,
+      type: String,
     },
     images: {
-        type: [{
-            public_id: String,
-            secure_url: String,
-        }],
-        required: true
+      type: [
+        {
+          public_id: String,
+          secure_url: String,
+        },
+      ],
+      required: true,
     },
     curImg: String,
     prices: {
-        type: [Number],
-        required: true,
+      type: [Number],
+      required: true,
     },
     originalPrice: {
-        type: Number
+      type: Number,
     },
     extras: {
-        type: [{
-            text: { type: String, required: true },
-            price: { type: Number, required: true }
-        }]
+      type: [
+        {
+          text: { type: String, required: true },
+          price: { type: Number, required: true },
+        },
+      ],
     },
     category: {
-        type: String,
-        default: 'none'
+      type: String,
+      default: "none",
     },
     subCategory: {
-        type: String,
-        default: 'none'
+      type: String,
+      default: "none",
     },
     details: {
-        type: String
+      type: String,
     },
     ratings: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     stock: {
-        type: Number,
+      type: Number,
     },
     sold: {
-        type: Number,
-        default: 0,
+      type: Number,
+      default: 0,
     },
     onSale: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
     freeShiping: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     shipingFee: {
-        type: Number,
-    }
-},
-    { timestamps: true }
+      type: Number,
+    },
+  },
+  { timestamps: true }
 );
 
-export default models.Product || model('Product', ProductSchema)
+export default models?.Product || model("Product", ProductSchema);
