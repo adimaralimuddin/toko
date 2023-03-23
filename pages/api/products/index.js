@@ -24,9 +24,14 @@ export default async function handler(req, res) {
   if (method === "POST") {
     switch (body.type) {
       case "all":
-        const allProducts = await Product.find();
-        console.log(allProducts?.length);
-        return res.status(200).json(allProducts);
+        try {
+          const allProducts = await Product.find();
+          console.log(allProducts?.length);
+          return res.status(200).json(allProducts);
+        } catch (err) {
+          console.log("error on serv - ", err);
+          res.status(500).json(error);
+        }
       case "query":
         const cat = body?.category == "all" ? "" : body?.category;
         const filter = {

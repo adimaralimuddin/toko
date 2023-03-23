@@ -17,6 +17,7 @@ function ProductPage({ productLists, products }) {
   const myprods = useQuery(
     ["products"],
     async () => {
+      
       const res = await axios.post("/api/products/", { type: "all" });
       console.log("res", res);
       return res?.data;
