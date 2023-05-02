@@ -50,7 +50,7 @@ function MainHeader() {
                     },
                   }}
                 >
-                  Beli
+                  toko
                 </Typography>
               </div>
             </Link>

@@ -1,17 +1,17 @@
-import {
-  Grid,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Stack,
-  Container,
-} from "@mui/material";
-import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
+import StoreMallDirectoryIcon from "@mui/icons-material/StoreMallDirectory";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 import Link from "next/link";
 
@@ -35,7 +35,7 @@ function MainFooter() {
                   TOKO
                 </Typography>
               </div>
-              <Typography variant="body2" fontColor="primary">
+              <Typography variant="body2" color="primary">
                 E-commerce app by adimar
               </Typography>
               <Typography

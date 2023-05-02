@@ -1,10 +1,10 @@
-import { Grid, Skeleton } from "@mui/material";
+import { Skeleton } from "@mui/material";
 
 function LoaderCartItemList({ length = "asdfasdfasdd" }) {
   return (
     <div className="max-w-6xl mx-auto w-full">
-      {length?.split("").map((x) => (
-        <div key={x} className="rounded-xl flex p-3 ring-1 ring-gray-200  my-4">
+      {length?.split("").map((x, i) => (
+        <div key={i} className="rounded-xl flex p-3 ring-1 ring-gray-200  my-4">
           <Skeleton
             className="rounded-xl"
             variant="rectangular"

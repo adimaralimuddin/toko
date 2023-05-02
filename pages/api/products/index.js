@@ -26,10 +26,8 @@ export default async function handler(req, res) {
       case "all":
         try {
           const allProducts = await Product.find();
-          console.log(allProducts?.length);
           return res.status(200).json(allProducts);
         } catch (err) {
-          console.log("error on serv - ", err);
           res.status(500).json(error);
         }
       case "query":
@@ -46,10 +44,7 @@ export default async function handler(req, res) {
           filter.onSale = true;
         }
 
-        console.log(filter);
         const products = await Product.find(filter);
-        // console.log(products);
-        console.log(products?.length);
         return res.status(200).json(products);
 
       case "search":
@@ -69,22 +64,17 @@ export default async function handler(req, res) {
         }
 
       case "category":
-        console.log("get products by category");
-        console.log(body);
         try {
           const products = await Product.find({
             category: body?.category,
           }).limit(body?.limit ? body?.limit : 999);
-          console.log(products?.length);
           return res.status(200).json(products);
         } catch (error) {
-          console.log(error);
           return res.status(500).json({ error });
         }
       default:
         try {
           const product = await Product.create(req.body);
-          console.log(product);
           return res.status(201).json(product);
         } catch (error) {
           res.status(500).json(error);

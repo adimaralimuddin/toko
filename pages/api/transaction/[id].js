@@ -7,7 +7,6 @@ export default withApiAuthRequired(
         const { method, query: { id, type } } = req;
 
         if (method == 'DELETE') {
-            console.log(type)
             if (type == 'cancel') {
 
                 try {
@@ -25,7 +24,6 @@ export default withApiAuthRequired(
             if (type == 'remove') {
                 try {
                     const transaction = await Transaction.findByIdAndDelete(id)
-                    console.log(transaction)
                     return res.status(200).json(transaction)
                 } catch (error) {
                     return res.status(500).json({ error })

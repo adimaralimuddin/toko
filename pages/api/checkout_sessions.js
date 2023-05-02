@@ -1,19 +1,15 @@
-import { Error } from "@mui/icons-material";
+import mongoose, { Types } from "mongoose";
 import Stripe from "stripe";
 import Cart from "../../models/Cart";
 import Transaction from "../../models/Transaction";
-import mongoose, { Types } from "mongoose";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   const { body } = req;
   const { userId, paymentMethod, email } = body;
-  console.log("checkout session api");
   if (req.method === "POST") {
-    console.log("payment method ", paymentMethod);
     if (paymentMethod == "cash") {
-      console.log("handle cash on dilivery");
       try {
         const cart = await Cart.find({ userId, checked: true });
         const purchase = await Promise.all(
@@ -26,23 +22,18 @@ export default async function handler(req, res) {
             return transItem;
           })
         );
-        console.log(purchase);
-        return res
-          .status(200)
-          .json({
-            url: `${process.env.NEXT_PUBLIC_BASE_URL}/account/purchase`,
-          });
+        return res.status(200).json({
+          url: `${process.env.NEXT_PUBLIC_BASE_URL}/account/purchase`,
+        });
       } catch (error) {
-        console.log(error);
         return res.status(500).json({ error });
       }
     } else {
       // return res.send();
       try {
-        console.log("checkout api_ ", userId);
 
+        // get all checked cart
         const carts = await Cart.find({ userId, checked: true });
-        console.log("carts created ", carts?.length);
 
         const line_items = carts?.map((cart) => ({
           price_data: {
@@ -60,7 +51,6 @@ export default async function handler(req, res) {
         const shippingFee = () =>
           carts?.reduce((total, item) => total + item?.shipingFee, 0);
 
-        console.log("shiping fee ", shippingFee());
 
         const metadata = { userId };
         const session = await stripe.checkout.sessions.create({
@@ -112,15 +102,14 @@ export default async function handler(req, res) {
           ],
           mode: "payment",
           metadata,
-          success_url: `${req.headers.origin}/account/purchase`,
+          // success_url: `${req.headers.origin}/account/success?sessionId={CHECKOUT_SESSION_ID}&userId=${userId}`,
+          success_url: `${req.headers.origin}/account/purchase?sessionId={CHECKOUT_SESSION_ID}&userId=${userId}`,
           cancel_url: `${req.headers.origin}/checkout/?canceled=true`,
         });
 
-        console.log(session.url);
 
         return res.status(200).json({ url: session.url });
       } catch (err) {
-        console.log(err);
         res.status(err.statusCode || 500).json(err.message);
       }
     }

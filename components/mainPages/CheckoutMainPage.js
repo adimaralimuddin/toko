@@ -1,13 +1,13 @@
-import { Box, Container, Grid, Stack, Typography, Modal } from "@mui/material";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import useCart from "../../controls/cartControl";
 import { useUser } from "@auth0/nextjs-auth0";
-import useAccount from "../../controls/accountControl";
+import { Box, Container, Grid, Modal, Stack, Typography } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import useAccount from "../../controls/accountControl";
+import useCart from "../../controls/cartControl";
+import PrimaryButton from "../elements/PrimaryButton";
 import LoaderCartItemList from "../loader/LoaderCartItemList";
 import NoItems from "../loader/NoItems";
-import PrimaryButton from "../elements/PrimaryButton";
 
 function CheckoutMainPage() {
   const {
@@ -212,7 +212,6 @@ function CheckoutMainPage() {
 export default CheckoutMainPage;
 
 function Item({ product }) {
-  console.log(product);
   return (
     <div className="ring-1 ring-gray-200 shadow-sm rounded-lg bg-white p-3 mt-5">
       <Grid container spacing={2}>

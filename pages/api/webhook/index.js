@@ -1,17 +1,15 @@
-import initStripe from "stripe";
 import { buffer } from "micro";
+import mongoose, { Types } from "mongoose";
+import initStripe from "stripe";
 import Cart from "../../../models/Cart";
 import Transaction from "../../../models/Transaction";
-import mongoose, { Types } from "mongoose";
 
 export const config = { api: { bodyParser: false } };
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    console.log(req.method + " not allowed");
     return res.send();
   }
-
   const stripe = initStripe(process.env.STRIPE_SECRET_KEY);
   const signature = req.headers["stripe-signature"];
   const signingSecret =
@@ -19,11 +17,9 @@ export default async function handler(req, res) {
   const reqBuffer = await buffer(req);
 
   let event;
-
   try {
     event = stripe.webhooks.constructEvent(reqBuffer, signature, signingSecret);
   } catch (error) {
-    console.log(error);
     return res.status(400).send(`webhook error: ${error.message}`);
   }
 
@@ -36,8 +32,6 @@ export default async function handler(req, res) {
       metadata: { userId },
     } = object;
 
-    console.log(object);
-
     const cart = await Cart.find({ userId, checked: true });
     const purchase = await Promise.all(
       cart.map(async (item) => {
@@ -49,7 +43,6 @@ export default async function handler(req, res) {
         return transItem;
       })
     );
-    console.log({ purchase });
   } // end if event.typ == checkout.session.completed
 
   res.send({ received: true });

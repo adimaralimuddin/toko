@@ -11,7 +11,6 @@ export async function getServerSideProps({ params: { productId } }) {
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${productId}`
   );
-  console.log(data);
   return {
     props: {
       product: data,

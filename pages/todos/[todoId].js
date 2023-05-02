@@ -11,7 +11,6 @@ function TodoId({ todo }) {
       title: data.title + " updated again and again",
     });
     setData(res.data);
-    console.log(res.data);
   };
 
   return (

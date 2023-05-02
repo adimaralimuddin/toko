@@ -181,7 +181,6 @@ function ProductAdder() {
 }
 
 function ProductAdminItem({ product, deleteById }) {
-  console.log(product);
   return (
     <Link href={`/products/${product?._id}`}>
       <div className="flex flex-col bg-gray-200 p-2 m-2 w-[200px] cursor-pointer">

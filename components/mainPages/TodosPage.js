@@ -4,7 +4,6 @@ import Link from 'next/link'
 import axios from 'axios'
 
 function TodosPage({ todos }) {
-    console.log(todos)
     const [data, setData] = useState(todos)
 
     const refreshData = async () => {

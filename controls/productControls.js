@@ -4,7 +4,6 @@ import create from "zustand";
 var url = "/api/products/";
 const curl = `https://api.cloudinary.com/v1_1/dx8mmwiyp/image/upload`;
 
-
 const store_ = create((set) => ({
   loading: true,
   products: [],
@@ -52,7 +51,6 @@ function useProduct() {
       url,
       category ? { ...queryData(), category } : queryData()
     );
-    console.log('this suck! ',data)
     set({ products: data, loading: false });
     return data;
   };
@@ -74,12 +72,10 @@ function useProduct() {
 
   const deleteById = async (id) => {
     const res = await axios.delete(url + "/" + id);
-    console.log("res: ", res);
     set({ products: products?.filter((p) => p?._id != id) });
   };
 
   const addProduct = async (store) => {
-    console.log(store);
     const images = await Promise.all(
       store.imgFiles.map(async (file) => {
         const formData = new FormData();
@@ -92,7 +88,6 @@ function useProduct() {
         return { secure_url, public_id };
       })
     );
-    console.log(images);
 
     const res = await axios.post("/api/products", {
       ...store.values,

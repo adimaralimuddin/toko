@@ -1,10 +1,11 @@
 import { useUser } from "@auth0/nextjs-auth0";
 import { useEffect, useState } from "react";
 
+import useAccount from "../../controls/accountControl";
 import useTransaction from "../../controls/transactionControl";
 import LoaderCartItemList from "../loader/LoaderCartItemList";
 import TransactionItem from "../transaction/TransactionItem";
-import useAccount from "../../controls/accountControl";
+import { useRouter } from "next/router";
 
 export default function AccountPurchase() {
   const { user } = useUser();
@@ -20,11 +21,26 @@ export default function AccountPurchase() {
     display,
   } = useTransaction();
 
+  const { query } = useRouter();
+  const { sessionId, userId } = query;
+
   useEffect(() => {
     if (user && details) {
       getTransactions(details?._id);
     }
   }, [user, details]);
+
+  useEffect(() => {
+    if (!sessionId) return;
+    getResult();
+  }, [sessionId]);
+
+  const getResult = async () => {
+    const res = await fetch(
+      `/api/stripe/session/${sessionId}?userId=${userId}`
+    );
+    const r2 = await res.json();
+  };
 
   const handleChange = ({ target }) => {
     setDisplay(target.textContent);
@@ -57,12 +73,12 @@ export default function AccountPurchase() {
       </div>
       <div className=" flex-1">
         {loading && <LoaderCartItemList />}
-        {selectedTransactions?.map((transaction) => (
+        {selectedTransactions?.map((transaction, i) => (
           <TransactionItem
             data={transaction}
             cancelOrder={cancelOrder}
             removeItem={removeItem}
-            key={transaction?._id}
+            key={i}
           />
         ))}
       </div>

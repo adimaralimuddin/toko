@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useCart from "../controls/cartControl";
 import useProduct from "../controls/productControls";
+import ProductImages from "./ProductImages";
+import ProductsLists from "./ProductsLists";
 import ProductExtras from "./others/ProductExtras";
 import ProductPricing from "./others/ProductPricing";
 import ProductQuantityEditor from "./others/ProductQuantityEditor";
 import ProductRating from "./others/ProductRating";
 import ProductsMoreInfo from "./others/ProductsMoreInfo";
-import ProductImages from "./ProductImages";
-import ProductsLists from "./ProductsLists";
 
 function ProductItemDetailView({ product }) {
   const { getCurrentProduct, curProduct, curPrice, set, loading } = useCart();
@@ -17,7 +17,6 @@ function ProductItemDetailView({ product }) {
   const router = useRouter();
   const { id } = router.query;
   const [products, setProducts] = useState();
-  console.log("product detail product", product);
 
   useEffect(() => {
     set({ curProduct: null });
@@ -26,7 +25,7 @@ function ProductItemDetailView({ product }) {
   }, [id]);
 
   useEffect(() => {
-    if (curProduct?.category) {
+    if (curProduct && curProduct?.category) {
       getRelatedProducts();
     }
   }, [curProduct]);
@@ -131,24 +130,9 @@ function Loader() {
               <Skeleton className="rounded-lg" variant="text" width="60%" />
               <br />
               <div className="flex flex-wrap justify-between">
-                <Skeleton
-                  className="rounded-lg"
-                  variant="text"
-                  width={"30%"}
-                  m
-                />
-                <Skeleton
-                  className="rounded-lg"
-                  variant="text"
-                  width={"30%"}
-                  m
-                />
-                <Skeleton
-                  className="rounded-lg"
-                  variant="text"
-                  width={"30%"}
-                  m
-                />
+                <Skeleton className="rounded-lg" variant="text" width={"30%"} />
+                <Skeleton className="rounded-lg" variant="text" width={"30%"} />
+                <Skeleton className="rounded-lg" variant="text" width={"30%"} />
               </div>
               <Skeleton className="rounded-lg" variant="text" />
             </div>

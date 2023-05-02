@@ -28,7 +28,6 @@ export const cartSlice = createSlice({
         },
         selectItem: (state, action) => {
             const { prod, check } = action.payload
-            // console.log(prod, check);
             if (check) {
                 if (state.toPay?.find(p => p._id == prod?._id)) {
                     state.toPay = state.toPay.filter(p => p?._id != prod?._id)
@@ -38,7 +37,6 @@ export const cartSlice = createSlice({
             } else {
                 state.toPay = state.toPay.filter(p => p?._id != prod?._id)
             }
-            console.log(state.toPay);
         }
     }
 })

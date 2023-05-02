@@ -57,7 +57,6 @@ export const useProduct = () => {
     const data = { title, category, type: "search" };
     const res = await axios.post(url, data);
     set({ searching: false });
-    console.log(res.data);
     dispatch(setSearchedItems(res.data));
   };
 
@@ -66,7 +65,6 @@ export const useProduct = () => {
     const data = { title, category, type: "get-search" };
     const res = await axios.post(url, data);
     set({ searching: false, isOpenSearchItems: false });
-    console.log(res.data);
     dispatch(setProducts(res.data));
   };
 

@@ -14,7 +14,6 @@ export default function useTransaction() {
     store_();
 
   const getTransactions = async (userId) => {
-    console.log(userId);
     set({ loading: true, userId });
     try {
       const res = await axios.get(baseUrl + "?userId=" + userId);
@@ -25,7 +24,6 @@ export default function useTransaction() {
       });
       setDisplay(display, res.data);
     } catch (error) {
-      console.log("has error", error);
       set({ loading: false });
     }
   };
@@ -41,7 +39,6 @@ export default function useTransaction() {
   };
 
   const setDisplay = (value, transactions_ = transactions) => {
-    console.log(value);
     set({ selectedTransactions: [] });
     switch (value) {
       case "All":
@@ -90,4 +87,3 @@ export default function useTransaction() {
     removeItem,
   };
 }
-

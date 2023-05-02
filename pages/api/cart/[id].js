@@ -8,10 +8,8 @@ export default async function handler(req, res) {
   } = req;
 
   const { type, userId, value } = body;
-  console.log(body);
 
   if (method == "DELETE") {
-    console.log("handle delete");
     try {
       const deleteToPay = await Cart.findByIdAndDelete(id);
       return res
@@ -32,7 +30,6 @@ export default async function handler(req, res) {
           const savedCart = await cart.save();
           return res.status(200).json(savedCart);
         } catch (error) {
-          console.log(error);
           return res.status(500).json({ error });
         }
       case "dec":
@@ -44,7 +41,6 @@ export default async function handler(req, res) {
           const savedCart = await cart.save();
           return res.status(200).json(savedCart);
         } catch (error) {
-          console.log(error);
           return res.status(500).json({ error });
         }
       case "select":
@@ -54,7 +50,6 @@ export default async function handler(req, res) {
           await cart.save();
           return res.status(200).json(cart);
         } catch (error) {
-          console.log(error);
           return res.status(500).json({ error });
         }
 

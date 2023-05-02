@@ -63,7 +63,6 @@ function useCart() {
       checked,
       shipingFee,
     };
-    console.log(body);
     const res = await axios.post("/api/cart", body);
     set((p) => ({ cart: [...p?.cart, res.data] }));
   };
@@ -92,7 +91,6 @@ function useCart() {
   };
 
   const incPayItemQnty = async (id) => {
-    console.log("inc qnt");
     const res = await axios.put(baseUrl + id, { type: "inc", userId });
     set((p) => ({
       cart: p?.cart?.map((x) => (x?._id == res.data?._id ? res.data : x)),
@@ -100,7 +98,6 @@ function useCart() {
   };
 
   const decPayItemQnty = async (id) => {
-    console.log("dec qnt");
     const res = await axios.put(baseUrl + id, { type: "dec", userId });
     set((p) => ({
       cart: p?.cart?.map((x) => (x?._id == res.data?._id ? res.data : x)),
@@ -142,7 +139,6 @@ function useCart() {
   };
 
   const selectAllItems = async (value) => {
-    console.log(value);
     const res = await axios.put(baseUrl, { userId, value });
     const newCart = cart.map((c) => {
       c.checked = value;

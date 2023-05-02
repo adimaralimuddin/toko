@@ -19,26 +19,21 @@ function ProductPage({ productLists, products }) {
     async () => {
       
       const res = await axios.post("/api/products/", { type: "all" });
-      console.log("res", res);
       return res?.data;
     },
 
     {
       onSuccess(data) {
-        console.log("data prodas ", data);
       },
       onError(err) {
-        console.log("errorrrr", err);
       },
     }
   );
 
-  // console.log("prodddd", serverProducts);
   useEffect(() => {
     getMainProduct();
   }, []);
 
-  // if (loading) return <LoadingView />;
 
   return (
     <div className="max-w-[1200px] mx-auto px-[3%]">
